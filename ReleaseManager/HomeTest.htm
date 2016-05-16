@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript">
+        function addItem(e) {
+            window.open('addToRelease.aspx?uris=' + $('#singleUri').val(), '_blank', 'toolbar=no,width=300,height=500,resizable=yes,scrollbars=yes');
+        }
+
+        $(function () {
+            $('#testAddItem').on('click', addItem);
+        });
+    </script>
+</head>
+<body>
+
+<a href="#" onclick="javascript:window.open('manageReleases.aspx', '_blank', 'toolbar=no,width=800,height=550,resizable=yes,scrollbars=yes');">Open main window</a><br />
+
+<div class="testPanel">
+    TCM URI to launch Add/Remove window (comma separate multiple):
+    <input type="text" id="singleUri" size="40"/> <input type="button" id="testAddItem" value="Go" /><br />
+</div>
+
+</body>
+</html>

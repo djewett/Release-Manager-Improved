@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="C:\Documents and Settings\a675062\My Documents\ReleaseManagerDeployable" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="Service References/CoreService2011/ReleaseManagerExtension.CoreService2011.TemplateType.datasource" publishTime="04/04/2013 16:34:06" />
+    <file relUrl="Service References/CoreService2011/CoreService20115.xsd" publishTime="04/04/2013 16:33:58" />
+    <file relUrl="Properties/DataSources/System.Xml.XmlElement.datasource" publishTime="03/01/2011 10:44:00" />
+    <file relUrl="bin/Tridion.ContentManager.Queuing.dll" publishTime="11/02/2011 09:50:22" />
+    <file relUrl="Configuration/ReleaseManagerExtension.config" publishTime="03/01/2011 11:23:00" />
+    <file relUrl="Service References/CoreService2011/CoreService20114.xsd" publishTime="04/04/2013 16:33:58" />
+    <file relUrl="Properties/AssemblyInfo.cs" publishTime="03/01/2011 10:38:00" />
+    <file relUrl="ReleaseManagerExtension.csproj.user" publishTime="04/09/2013 11:11:23" />
+    <file relUrl="js/ReleaseManagerExtension.js" publishTime="04/09/2013 11:03:44" />
+    <file relUrl="Service References/CoreService2011/ReleaseManagerExtension.CoreService2011.ActionFlags.datasource" publishTime="04/04/2013 16:34:05" />
+    <file relUrl="Web.config" publishTime="04/09/2013 11:02:00" />
+    <file relUrl="bin/Tridion.ContentManager.Common.dll" publishTime="11/02/2011 09:49:02" />
+    <file relUrl="removeFromRelease.aspx.cs" publishTime="04/09/2013 09:49:34" />
+    <file relUrl="Service References/CoreService2011/ReleaseManagerExtension.CoreService2011.WindowsUser.datasource" publishTime="04/04/2013 16:34:06" />
+    <file relUrl="Service References/CoreService2011/ReleaseManagerExtension.CoreService2011.RepositoryLocalObjectData.datasource" publishTime="04/04/2013 16:34:05" />
+    <file relUrl="Service References/CoreService2011/ReleaseManagerExtension.CoreService2011.InstanceData.datasource" publishTime="04/04/2013 16:34:06" />
+    <file relUrl="Service References/CoreService2011/ReleaseManagerExtension.CoreService2011.PublishContextData.datasource" publishTime="04/04/2013 16:34:05" />
+    <file relUrl="Service References/CoreService2011/CoreService20111.wsdl" publishTime="04/04/2013 16:33:59" />
+    <file relUrl="manageReleases.aspx.cs" publishTime="04/09/2013 09:43:19" />
+    <file relUrl="Service References/CoreService2011/ReleaseManagerExtension.CoreService2011.ActivityInstanceData.datasource" publishTime="04/04/2013 16:34:05" />
+    <file relUrl="Service References/CoreService2011/ReleaseManagerExtension.CoreService2011.ProcessHistoryData.datasource" publishTime="04/04/2013 16:34:05" />
+    <file relUrl="Service References/CoreService2011/ReleaseManagerExtension.CoreService2011.QueueMessageData.datasource" publishTime="04/04/2013 16:34:06" />
+    <file relUrl="bin/Tridion.ContentManager.TypeRegistration.dll" publishTime="11/02/2011 09:49:04" />
+    <file relUrl="bin/ReleaseManagerExtension.dll" publishTime="04/09/2013 11:11:23" />
+    <file relUrl="Service References/CoreService2011/CoreService2011.wsdl" publishTime="04/04/2013 16:33:58" />
+    <file relUrl="addToRelease.aspx.designer.cs" publishTime="04/04/2013 16:19:51" />
+    <file relUrl="removeFromRelease.aspx.designer.cs" publishTime="04/08/2013 09:43:55" />
+    <file relUrl="Service References/CoreService2011/ReleaseManagerExtension.CoreService2011.PublicationType.datasource" publishTime="04/04/2013 16:34:06" />
+    <file relUrl="Service References/CoreService2011/ReleaseManagerExtension.CoreService2011.IdentifiableObjectData.datasource" publishTime="04/04/2013 16:34:05" />
+    <file relUrl="Service References/CoreService2011/ReleaseManagerExtension.CoreService2011.ApplicationData.datasource" publishTime="04/04/2013 16:34:06" />
+    <file relUrl="bin/Tridion.ContentManager.xml" publishTime="11/02/2011 09:50:28" />
+    <file relUrl="Service References/CoreService2011/Reference.cs" publishTime="04/04/2013 16:34:04" />
+    <file relUrl="ReleaseManagerExtension.csproj" publishTime="04/09/2013 11:11:23" />
+    <file relUrl="Service References/CoreService2011/ReleaseManagerExtension.CoreService2011.SecurityDescriptorDataDictionary.datasource" publishTime="04/04/2013 16:34:06" />
+    <file relUrl="bin/Tridion.ContentManager.TypeRegistration.xml" publishTime="11/02/2011 09:49:04" />
+    <file relUrl="Service References/CoreService2011/configuration91.svcinfo" publishTime="04/04/2013 16:33:59" />
+    <file relUrl="css/ReleaseManager.css" publishTime="04/09/2013 09:43:57" />
+    <file relUrl="addToRelease.aspx.cs" publishTime="04/08/2013 17:09:32" />
+    <file relUrl="Service References/CoreService2011/CoreService2011.disco" publishTime="04/04/2013 16:33:59" />
+    <file relUrl="Service References/CoreService2011/ReleaseManagerExtension.CoreService2011.PublishTransactionData.datasource" publishTime="04/04/2013 16:34:05" />
+    <file relUrl="bin/Tridion.Common.dll" publishTime="11/02/2011 09:44:54" />
+    <file relUrl="removeFromRelease.aspx" publishTime="04/08/2013 09:48:26" />
+    <file relUrl="Service References/CoreService2011/ReleaseManagerExtension.CoreService2011.RenderedItemData.datasource" publishTime="04/04/2013 16:34:05" />
+    <file relUrl="bin/Tridion.ContentManager.dll" publishTime="11/02/2011 09:50:28" />
+    <file relUrl="Service References/CoreService2011/CoreService2011.xsd" publishTime="04/04/2013 16:33:58" />
+    <file relUrl="Service References/CoreService2011/Reference.svcmap" publishTime="04/04/2013 16:33:59" />
+    <file relUrl="Service References/CoreService2011/ReleaseManagerExtension.CoreService2011.QueueData.datasource" publishTime="04/04/2013 16:34:06" />
+    <file relUrl="bin/Tridion.ContentManager.Queuing.xml" publishTime="01/29/2011 13:54:00" />
+    <file relUrl="bin/ReleaseManagerExtension.pdb" publishTime="04/09/2013 11:11:23" />
+    <file relUrl="bin/Tridion.ContentManager.TemplateTypes.xml" publishTime="11/02/2011 09:49:06" />
+    <file relUrl="Service References/CoreService2011/ReleaseManagerExtension.CoreService2011.ApplicationDataDictionary.datasource" publishTime="04/04/2013 16:34:06" />
+    <file relUrl="Service References/CoreService2011/ReleaseManagerExtension.CoreService2011.SchemaFieldsData.datasource" publishTime="04/04/2013 16:34:06" />
+    <file relUrl="Service References/CoreService2011/ReleaseManagerExtension.CoreService2011.DirectoryServiceUser.datasource" publishTime="04/04/2013 16:34:06" />
+    <file relUrl="Service References/CoreService2011/ReleaseManagerExtension.CoreService2011.VersionedItemData.datasource" publishTime="04/04/2013 16:34:05" />
+    <file relUrl="manageReleases.aspx" publishTime="04/09/2013 09:41:28" />
+    <file relUrl="Service References/CoreService2011/configuration.svcinfo" publishTime="04/04/2013 16:33:59" />
+    <file relUrl="bin/Tridion.Common.xml" publishTime="11/02/2011 09:44:54" />
+    <file relUrl="bin/Tridion.ContentManager.TemplateTypes.dll" publishTime="11/02/2011 09:49:06" />
+    <file relUrl="Service References/CoreService2011/ReleaseManagerExtension.CoreService2011.UserData.datasource" publishTime="04/04/2013 16:34:05" />
+    <file relUrl="Service References/CoreService2011/CoreService20112.xsd" publishTime="04/04/2013 16:33:58" />
+    <file relUrl="Service References/CoreService2011/ReleaseManagerExtension.CoreService2011.ArrayOfTcmUri.datasource" publishTime="04/04/2013 16:34:06" />
+    <file relUrl="Code/releaseManagerObject.cs" publishTime="03/01/2011 10:46:00" />
+    <file relUrl="manageReleases.aspx.designer.cs" publishTime="04/08/2013 13:58:00" />
+    <file relUrl="Service References/CoreService2011/ReleaseManagerExtension.CoreService2011.PublishInfoData.datasource" publishTime="04/04/2013 16:34:05" />
+    <file relUrl="Code/releaseManagerRepository.cs" publishTime="04/08/2013 10:39:59" />
+    <file relUrl="Service References/CoreService2011/CoreService20111.xsd" publishTime="04/04/2013 16:33:58" />
+    <file relUrl="Service References/CoreService2011/CoreService20113.xsd" publishTime="04/04/2013 16:33:58" />
+    <file relUrl="bin/Tridion.ContentManager.Common.xml" publishTime="11/02/2011 09:49:02" />
+    <file relUrl="css/ReleaseManagerExtension.css" publishTime="03/01/2011 11:17:00" />
+    <file relUrl="Service References/CoreService2011/ReleaseManagerExtension.CoreService2011.ClassificationInfoData.datasource" publishTime="04/04/2013 16:34:06" />
+    <file relUrl="addToRelease.aspx" publishTime="04/04/2013 18:22:46" />
+  </publishProfile>
+</publishData>

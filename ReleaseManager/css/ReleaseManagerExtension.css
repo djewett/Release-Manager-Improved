@@ -1,0 +1,21 @@
+﻿/* 
+ * context menu item icons for the context menu that appears for translatable icons 
+ * button ManageReleases ribbonitem
+ * .ribbontoolbar .button.ManageReleases .text 
+ */
+
+
+#bc_ctp2011_release.item
+{
+	background-image: url({ThemePath}Images/Release.png);
+}
+
+#Releasemanager.tridion.button.ManageReleases.ribbonitem .image
+{
+    background-image: url({ThemePath}Images/Releasemanager32x32.png); 
+}
+
+/*
+.ribbontoolbar .button.ItemXmlDisplay .image {background-image: url({ThemePath}/itemXmlDisplay/styles/icons/xmlicon32.png);} 
+.ribbontoolbar.minimized .button.ItemXmlDisplay .image {background-image: url({ThemePath}/itemXmlDisplay/styles/icons/xmlicon16.png);} 
+*/

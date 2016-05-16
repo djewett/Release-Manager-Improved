@@ -1,0 +1,424 @@
+﻿html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* -------------------------------------------------------- */
+em{font-style:italic}
+strong{font-weight:700}
+body{font-family:Verdana,Arial; font-size:13px;}
+h1,h3{font-size:18px; margin-bottom:5px;}
+#panelButtonCreateImportExport,#addReleaseForm,#PanelReleases
+{
+    margin-bottom:10px
+}
+#ReleaseItems
+{
+    margin-bottom:20px;
+    background:#fafafa;
+}
+h4
+{
+    padding:9px 0 12px 9px;
+}
+
+#PanelReleases h3
+{
+    float:left;
+}
+a#importRelease,#addReleaseButton
+{
+    float:right;
+    padding:5px;
+    clear:right;
+    padding-bottom:10px;
+}
+a#importRelease
+{
+    padding-bottom:0;
+}
+#panelExportHyperlink,#panelImportHyperlink
+{
+    margin-top:5px
+}
+#removeFromRelease input
+{
+    margin-right:20px;
+    height: 26px;
+}
+#removeFromRelease
+{
+    margin:10px;
+    width:600px;
+}
+
+.releaseName
+{
+    width:300px;
+    display:inline-block;
+}
+.spacer
+{
+    margin:8px 0;
+}
+h4
+{
+    font-weight:700;
+    margin-bottom:12px;
+    font-size:14px;
+}
+h3,h4
+{
+    padding:5px 0 5px 5px;
+}
+#lblMessage
+{
+    background-color:#E7FFED;
+    padding:12px;
+    display:inline-block;   
+}
+#lblMessage input
+{
+    clear:both;
+    display:block;
+    margin-top:10px;
+}
+#PanelImportExport textarea{margin-right:35px}
+#PanelImportExport,#ExportReleasePanel{padding:10px; background-color:#eee; margin-bottom:10px}
+#yesButton{width:40px}
+#noButton{width:80px}  
+#PanelMessages{margin-top:10px}
+.viewItems{margin-right:20px}
+#txtNewRelease
+{
+    width:300px;
+}
+
+input
+{
+    padding:4px;
+    border:1px solid #bbb;
+    border-radius:4px;
+}
+input[type=submit],input[type=button]
+{
+    background:#f8f8f8;
+    padding:4px 12px;
+    cursor:pointer;
+    margin-right:20px;
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(232,232,232,1) 100%);
+    min-width:80px;
+}
+
+input[type=submit]:hover,input[type=button]:hover
+{
+    background:#fff;
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(247,247,247,1) 100%);
+}
+
+input[type=submit].primary,input[type=button].primary
+{
+    background: linear-gradient(to bottom, rgba(239,249,255,1) 0%,rgba(188,231,255,1) 62%);
+}
+input[type=submit].primary:hover,input[type=button].primary:hover
+{
+    background: linear-gradient(to bottom, rgba(239,249,255,1) 0%,rgba(216,241,255,1) 62%);
+}
+
+#btnAddNewRelease,#cancelAddNewRelease
+{
+    margin-top:10px;
+}
+#btnAddNewRelease
+{
+    margin-left:100px;
+}
+#cancelAddNewRelease
+{
+    margin-left:20px;
+}
+#finalizeRelease,#exportRelease
+{
+    margin-top:20px;
+    font-weight:700;
+    display:inline-block;
+}
+#ReleaseItems h4
+{
+    float:left;
+}
+#ReleaseItems #backButton
+{
+    float:right;
+    margin:10px 10px 0 0 ;
+}
+#ReleaseItems #bundlesPanel
+{
+    position: relative;
+    left: 520px;
+    right: 0;
+    top: 40px;
+    width: 370px;
+    height: 150px;
+}
+#ReleaseItems #bundlesButton
+{
+    position:absolute;
+    top: 70px;
+    right: 0px;
+}
+#ReleaseItems #bundleFolderLabel
+{
+    position: absolute;
+    top: 4px;
+    left: 0;
+    margin:10px;
+}
+#ReleaseItems #bundlePrefixLabel
+{
+    position: absolute;
+    top: 35px;
+    left: 0;
+    margin:10px;
+}
+#ReleaseItems #bundleFolderBox
+{
+    position: absolute;
+    top: 0px;
+    left: 105px;
+    margin:10px;
+}
+#ReleaseItems #bundlePrefixBox
+{
+    position: absolute;
+    top: 30px;
+    left: 105px;
+    margin:10px;
+}
+#addReleaseForm
+{
+    padding:5px;
+}
+#addToRelease form
+{
+    padding:10px 10px;
+}
+
+.row
+{
+    clear:both;
+    padding:5px;
+    background-color:#fafafa;
+}
+.row.first
+{
+    border-top:1px solid #ccc;
+}
+
+.row.odd
+{
+    background-color:#F4F4F4;
+    border:1px solid #eee;
+}
+.row .item
+{
+    float:left;
+    max-width:610px;
+}
+.row .controls
+{
+    float:right;
+    padding-right:5px;
+}
+.row .controls a
+{
+    padding:8px 0;
+    display:inline-block;
+}
+a,a:visited
+{
+    color:#007ACC;
+}
+#PanelFinalizeRelease
+{
+    padding-left:10px;
+}
+#cancelAdd
+{
+    display:block;
+    margin-top:10px;
+}
+#notesPanel
+{
+    clear:both;
+}
+#ReleaseItems textarea
+{
+    border:1px solid #333;
+    padding:2px;
+    font-family: Verdana, Arial;
+    margin:0 0 25px 6px;
+    background-color:#fafafa;
+    border:1px solid #d8d8d8;
+    min-height:26px;
+    float:left;
+    overflow:hidden;
+    margin-right:10px;
+}
+#ReleaseItems textarea:hover,#ReleaseItems textarea:focus
+{
+    border:1px solid #333;
+    background-color:#fff;
+}
+#ReleaseItems textarea.empty
+{
+    color:#aaa;
+}
+#saveNotes
+{
+    display:none;
+    float:left;
+    margin-left:10px;
+}
+.status
+{
+    padding:10px;
+    display:inline-block;
+    float:left;
+    border-radius:4px;
+}
+.status.good
+{
+    background-color:#E7FFED;
+    border:1px solid #A0E5B0;
+}
+.status.bad
+{
+    background-color:#FFECEC;
+    border:1px solid #FF8C8C;
+}
+#releaseList
+{
+    margin-top:10px;
+    margin-bottom:20px;
+}
+.item .info
+{
+    display:inline-block;
+    color:#aaa;
+    padding-left:10px;
+    padding-top:3px;
+}
+.row.possibleConflicts
+{
+    box-shadow:inset 0 0 1px 1px #fb0;
+    background-color:#fffbef;
+}
+.row.odd.possibleConflicts
+{
+    background-color:#fff6db;
+}
+
+.row.definiteConflicts
+{
+    box-shadow:inset 0 0 1px 1px #fb0 !important;
+    background-color:#FFEBCC !important;
+}
+.row.odd.definiteConflicts
+{
+    background-color:#FFEBD6 !important;
+}
+
+.row.itemMissing
+{
+    box-shadow:inset 0 0 1px 1px #f00 !important;
+    background-color:#fff5f5 !important;
+}
+.row.odd.itemMissing
+{
+    background-color:#ffecec !important;
+}
+
+#releaseXml
+{
+    margin-bottom:10px;
+    width:620px;
+}
+#importReleaseForm
+{
+    padding:0 10px;
+}
+#importReleaseForm .status
+{
+    width:600px;
+    margin-top:10px;
+}
+#importReleaseForm .status.good
+{
+    width:512px;
+    float:left;
+}
+#continueButton
+{
+    float:left;
+    display:none;
+    margin:10px 0 0 10px;
+}
+.item.deleted
+{
+    color:#aaa;
+}
+
+#allReleases{
+	overflow:auto;
+	height:350px;
+}
+
+.errorButtonViewItems{
+    float: right;
+	background-image: url({ThemePath}Images/error.png);
+    width: 67px;
+    height: 10px;
+    background-position-x: 45px;
+    background-position-y: 5px;
+    background-repeat: no-repeat;
+    text-decoration: none;
+}

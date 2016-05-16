@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<db>
+  <releases>
+    <release id="96a3833b-b4ed-461f-ad7b-f8feba2c202b" dateAdded="2014-08-25T20:54:48.0830078Z" dateFinalized="">
+      <note>
+      </note>
+      <title>John's Release</title>
+      <addedBy>TRAIN1\Administrator</addedBy>
+      <deletedBy>
+      </deletedBy>
+    </release>
+    <release id="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2015-06-30T15:17:43.9085563Z" dateFinalized="">
+      <note>
+      </note>
+      <title>DJ new release</title>
+      <addedBy>WIN-DFMAJQHT95L\Administrator</addedBy>
+      <deletedBy>
+      </deletedBy>
+    </release>
+  </releases>
+  <items>
+    <!--<item uri="tcm:0-21-1" release="testrelease1"><webdav_url>/webdav/ctpurl</webdav_url><title></title><version_start></version_start><version_end></version_end></item>-->
+    <item uri="tcm:1-6377" release="96a3833b-b4ed-461f-ad7b-f8feba2c202b" dateAdded="2014-08-25T21:23:44.1494140Z" id="a3c4bb33-00bc-4027-9ba9-bc6e76ac2dd5">
+      <webdav_url>/webdav/200%20Global%20Content%20(English)/Building%20Blocks/Content/Event%20Listing.xml</webdav_url>
+      <title>Event Listing</title>
+      <is_shared>False</is_shared>
+      <subtype>0</subtype>
+    </item>
+    <item uri="tcm:1007-6603" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-04-23T02:29:44.9190609Z" id="1ee931ea-ca96-4f5c-a75f-8d07610718ba">
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20c%201%20(renamed).xml</webdav_url>
+      <title>test c 1</title>
+      <is_shared>False</is_shared>
+      <subtype>0</subtype>
+    </item>
+    <item uri="tcm:2005-7596-2048" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-05-15T22:17:25.7040569Z" id="ac5e7dd0-1642-413c-a1f2-385143ae650b">
+      <webdav_url>/webdav/070%20Local%20Site%202/Building%20Blocks/Default%20Templates/SDL%20External%20Content%20Library/Resolve%20ECL%20items%20V2.tbbcs</webdav_url>
+      <title>Resolve ECL items V2</title>
+      <is_shared>False</is_shared>
+      <subtype>0</subtype>
+    </item>
+  </items>
+</db>
