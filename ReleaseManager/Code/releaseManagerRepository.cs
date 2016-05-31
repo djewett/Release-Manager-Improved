@@ -339,9 +339,12 @@ namespace ReleaseManager
 
                     // TODO - get node from db and update webdav in it
 
-                    XmlNode webDavNode = db.SelectSingleNode("//items/item[@uri='" + item.URI + "'][@release='" + releaseId + "']/webdav_url");
-                    webDavNode.InnerText = item.WEBDAV_URL;
-                    db.Save(getPathReleaseManagerDb());
+                    //XmlNode webDavNode = db.SelectSingleNode("//items/item[@uri='" + item.URI + "'][@release='" + releaseId + "']/webdav_url");
+                    //if (webDavNode.InnerText != item.WEBDAV_URL)
+                    //{
+                    //    webDavNode.InnerText = item.WEBDAV_URL;
+                    //    db.Save(getPathReleaseManagerDb());
+                    //}
                 }
             }
             else
@@ -349,6 +352,29 @@ namespace ReleaseManager
                 // item doesn't exist so remove it from the release
                 removeFromRelease(item.URI, releaseId);
             }
+        }
+
+        // dj - May 2016
+        public void updateItemDetailsInReleaseData(Release release)
+        {
+            SessionAwareCoreServiceClient tridionClient = getCoreServiceClient();
+
+            foreach (var item in release.items)
+            {
+                if (this.stillExists(item) && tridionClient.IsExistingObject(item.URI))
+                {
+                    RepositoryLocalObjectData tridionItem = (RepositoryLocalObjectData)tridionClient.Read(item.URI, new ReadOptions());
+                    XmlNode webDavNode = db.SelectSingleNode("//items/item[@uri='" + item.URI + "'][@release='" + release.id + "']/webdav_url");
+                    System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text2.txt", "release.id: " + release.id);
+                    //if (webDavNode.InnerText != tridionItem.LocationInfo.WebDavUrl)
+                   // {
+                        webDavNode.InnerText = tridionItem.LocationInfo.WebDavUrl;
+                   // }
+                    //this.updateItemDetails(item, releaseId);
+                }
+            }
+
+            db.Save(getPathReleaseManagerDb());
         }
 
 
@@ -801,6 +827,8 @@ namespace ReleaseManager
         /// <returns></returns>
         public string createExportSettingsCP(string release)
         {
+
+
             //Select all items from this release
             XmlNodeList itemsToRelease = db.SelectNodes("//items/item[@release='" + release + "']");
 

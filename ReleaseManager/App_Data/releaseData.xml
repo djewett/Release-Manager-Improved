@@ -27,14 +27,14 @@
       <subtype>0</subtype>
     </item>
     <item uri="tcm:1007-6603" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-04-23T02:29:44.9190609Z" id="1ee931ea-ca96-4f5c-a75f-8d07610718ba">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20c%201%20(renamed).xml</webdav_url>
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20c%201%20(renamed9).xml</webdav_url>
       <title>test c 1</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>
-    <item uri="tcm:2005-7596-2048" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-05-15T22:17:25.7040569Z" id="ac5e7dd0-1642-413c-a1f2-385143ae650b">
-      <webdav_url>/webdav/070%20Local%20Site%202/Building%20Blocks/Default%20Templates/SDL%20External%20Content%20Library/Resolve%20ECL%20items%20V2.tbbcs</webdav_url>
-      <title>Resolve ECL items V2</title>
+    <item uri="tcm:1007-8571" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-05-31T14:55:12.9037465Z" id="7f005328-e2f9-4d55-992d-9965243bf6c5">
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/New%20Component.xml</webdav_url>
+      <title>New Component</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>

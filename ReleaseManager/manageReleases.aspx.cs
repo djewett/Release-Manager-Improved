@@ -58,6 +58,8 @@ namespace ReleaseManager
             LinkButton btn = (LinkButton)sender;
             string releaseId = btn.CommandArgument;
 
+            updateWebDavsInReleaseData(releaseId);
+
             ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
 
             var release = rmRep.getRelease(releaseId);
@@ -233,10 +235,15 @@ namespace ReleaseManager
             LinkButton button = (LinkButton)sender;
             string release = button.CommandArgument;
 
-            System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text.txt", "testesttest");
+            
+
+            
             Console.Out.WriteLine("here2");
             //logError("test_log_1");
             updateWebDavsInRelease(release);
+
+            //updateWebDavsInReleaseData(release);
+
             showItemsInRelease(release);
         }
 
@@ -249,12 +256,26 @@ namespace ReleaseManager
             {
                 if (rmRep.stillExists(item))
                 {
-                    rmRep.updateItemDetails_New(item, releaseId);
+                    rmRep.updateItemDetails(item, releaseId);
                 }
             }
 
             //XmlNode itemNode = db.SelectSingleNode("//items/item[@uri='" + item.URI + "'][@release='" + release + "']");
         }
+
+
+        // dj - May 2016
+        void updateWebDavsInReleaseData(string releaseId)
+        {
+            ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
+            var release = rmRep.getRelease(releaseId);
+            rmRep.updateItemDetailsInReleaseData(release);
+
+            System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text1.txt", "releaseId: " + releaseId);
+        }
+
+
+
 
         void showItemsInRelease(string releaseId)
         {
@@ -370,7 +391,7 @@ namespace ReleaseManager
                         // ensures the item webdav path is still OK
                         rmRep.updateItemDetails(item, release.id);
 
-
+                        rmRep.updateItemDetailsInReleaseData(release);
 
                         ////rmRep.updateItemDetails_New(item, release.id);
 

@@ -254,7 +254,20 @@
                     <Children>
                       <BrowserItem>
                         <WebDavUrl>
-                          <Url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20c%201%20(renamed).xml</Url>
+                          <Url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20c%201%20(renamed9).xml</Url>
+                        </WebDavUrl>
+                        <ItemType>Component</ItemType>
+                        <ItemSubType>0</ItemSubType>
+                        <IsShared>false</IsShared>
+                        <IsExpandable>false</IsExpandable>
+                        <CanContainChildren>false</CanContainChildren>
+                        <CheckStatus>ItemAndAllChildren</CheckStatus>
+                        <IsExpanded>false</IsExpanded>
+                        <IsExported>true</IsExported>
+                      </BrowserItem>
+                      <BrowserItem>
+                        <WebDavUrl>
+                          <Url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/New%20Component.xml</Url>
                         </WebDavUrl>
                         <ItemType>Component</ItemType>
                         <ItemSubType>0</ItemSubType>
