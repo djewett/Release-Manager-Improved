@@ -621,7 +621,7 @@ namespace ReleaseManager
                 //{
                     db.Save(getPathReleaseManagerDb());
 
-                    
+
 
                     //const string BundleNamespace = @"http://www.sdltridion.com/ContentManager/Bundle";
                     //SchemaData bundleTypeSchema = getCoreServiceClient().GetVirtualFolderTypeSchema(BundleNamespace);
@@ -638,6 +638,22 @@ namespace ReleaseManager
                 //}
             }
 
+        }
+
+        public void createBundles()
+        {
+            System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text1.txt", "here here 333");
+
+            const string BundleNamespace = @"http://www.sdltridion.com/ContentManager/Bundle";
+            SchemaData bundleTypeSchema = getCoreServiceClient().GetVirtualFolderTypeSchema(BundleNamespace);
+            string bundleSchemaId = bundleTypeSchema.Id;
+            var bundle = (VirtualFolderData)getCoreServiceClient().GetDefaultData(Tridion.ContentManager.CoreService.Client.ItemType.VirtualFolder, "tcm:5-2199-2", new ReadOptions());
+            bundle.Configuration = "<Bundle xmlns=\"http://www.sdltridion.com/ContentManager/Bundle\"><Items /></Bundle>";
+            bundle.TypeSchema = new LinkToSchemaData { IdRef = bundleSchemaId };
+            bundle.Title = "DJsNewBund2";
+            getCoreServiceClient().Create(bundle, new ReadOptions());
+
+            System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text2.txt", "here here 444");
         }
 
         /// <summary>

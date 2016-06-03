@@ -23,6 +23,6 @@ ReleaseManagerExtension.ManageReleases.prototype.isEnabled = function ManageRele
 
 ReleaseManagerExtension.ManageReleases.prototype._execute = function ManageReleases$_execute(selection) {
     var url = $config.expandEditorPath("/manageReleases.aspx", "ReleaseManagerExtension");
-    var popup = $popup.create(url, "toolbar=no,width=800,height=550,resizable=yes,scrollbars=yes", null);
+    var popup = $popup.create(url, "toolbar=no,width=1000,height=550,resizable=yes,scrollbars=yes", null);
     popup.open();
 }; 

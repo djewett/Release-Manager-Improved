@@ -32,11 +32,5 @@
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>
-    <item uri="tcm:1007-8571" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-05-31T14:55:12.9037465Z" id="7f005328-e2f9-4d55-992d-9965243bf6c5">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/New%20Component.xml</webdav_url>
-      <title>New Component</title>
-      <is_shared>False</is_shared>
-      <subtype>0</subtype>
-    </item>
   </items>
 </db>

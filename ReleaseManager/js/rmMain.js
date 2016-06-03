@@ -26,6 +26,9 @@ ADS.Tridion.ReleaseManager = {
         $('.viewItems').on('click', parent.handleViewItemsClick);
         //$('#backButton').on('click', parent.handleBackToReleasesClick);
 
+        // DJ
+        //$('.bundlesButton').on('click', parent.handleCreateBundlesClick);
+
         $notesBox = $('#notesBox');
         if ($notesBox.length == 1) {
             $notesBox.on('focus', parent.handleNotesFocus);
@@ -82,6 +85,11 @@ ADS.Tridion.ReleaseManager = {
     handleViewItemsClick: function (e) {
         window.location = "?showItemsInRelease=" + $(e.currentTarget).data('releaseid');
     },
+
+    // DJ
+    //handleCreateBundlesClick: function (e) {
+    //    window.location = "?showItemsInRelease=" + $(e.currentTarget).data('releaseid');
+    //},
 
     handleSaveNotesClick: function (e) {
         var parent = ADS.Tridion.ReleaseManager;

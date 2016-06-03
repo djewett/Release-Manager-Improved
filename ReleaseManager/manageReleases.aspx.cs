@@ -15,11 +15,20 @@ namespace ReleaseManager
         CheckBox showAll = new CheckBox();
         bool showDeletedReleases = false;
 
+        // DJ
+        //private Button yyyButton;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request["showItemsInRelease"] != null && !IsPostBack)
             {
-                showItemsInRelease(Request["showItemsInRelease"]);
+                Button yyyButton = new Button();
+                ////var yyyButton = new Button();
+                yyyButton.Text = "yyy";
+                yyyButton.CssClass = "xxx";
+                yyyButton.Click += new EventHandler(bundlesButton_Click);
+
+                showItemsInRelease(Request["showItemsInRelease"]); //, yyyButton);
             }
             else
             {
@@ -148,6 +157,13 @@ namespace ReleaseManager
                 var viewItems = new LiteralControl("<input type=\"button\" class=\"viewItems\" data-releaseId=\""+release.id+"\" value=\"View Items\" />");
                 controlPanel.Controls.Add(viewItems);
 
+                //yyyButton = new Button();
+                ////var yyyButton = new Button();
+                //yyyButton.Text = "yyy";
+                //yyyButton.CssClass = "xxx";
+                //yyyButton.Click += new EventHandler(bundlesButton_Click);
+                //controlPanel.Controls.Add(xxxButton);
+                
 
                 ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
                 if(rmRep.releaseContainsErrors(release))
@@ -244,7 +260,23 @@ namespace ReleaseManager
 
             //updateWebDavsInReleaseData(release);
 
-            showItemsInRelease(release);
+
+            //Button yyyButton = new Button();
+            ////var yyyButton = new Button();
+            //yyyButton.Text = "yyy";
+            //yyyButton.CssClass = "xxx";
+            //yyyButton.Click += new EventHandler(bundlesButton_Click);
+            //yyyButton.
+
+
+            showItemsInRelease(release); //, yyyButton);
+        }
+
+        void Xxx_Click(object sender, EventArgs e)
+        {
+            LinkButton button = (LinkButton)sender;
+            button.Enabled = false;
+            System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text.txt", "here here 888");
         }
 
         void updateWebDavsInRelease(string releaseId)
@@ -277,7 +309,7 @@ namespace ReleaseManager
 
 
 
-        void showItemsInRelease(string releaseId)
+        void showItemsInRelease(string releaseId) //, Button yyyButton)
         {
             ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
             var release = rmRep.getRelease(releaseId);
@@ -291,17 +323,17 @@ namespace ReleaseManager
             
             ReleaseItems.Controls.Clear();
             ReleaseItems.Controls.Add(new LiteralControl("<h4>Items in " + release.title + "</h4>"));
-            var backButton = new Button();
-            backButton.CssClass = "primary";
-            backButton.Text = "Back to Releases";
-            backButton.ID = "backButton";
-            backButton.Click += new EventHandler(backButton_Click);
+            //var backButton = new Button();
+            //backButton.CssClass = "primary";
+            //backButton.Text = "Back to Releases";
+            //backButton.ID = "backButton";
+            //backButton.Click += new EventHandler(backButton_Click);
 
            
 
-            //var backButton = new LiteralControl("<input type=\"button\" id=\"backButton\" class=\"primary\" value=\"Back to Releases\" />");
+            ////var backButton = new LiteralControl("<input type=\"button\" id=\"backButton\" class=\"primary\" value=\"Back to Releases\" />");
 
-            ReleaseItems.Controls.Add(backButton);
+            //ReleaseItems.Controls.Add(backButton);
            
 
             var notesPanel = new Panel();
@@ -327,6 +359,7 @@ namespace ReleaseManager
             notesPanel.Controls.Add(new LiteralControl("<div class=\"status\"></div>"));
             
             ReleaseItems.Controls.Add(notesPanel);
+
             var releaseIdField = new HiddenField();
             releaseIdField.Value = release.id;
             releaseIdField.ID = "releaseId";
@@ -359,11 +392,12 @@ namespace ReleaseManager
             //bundlePrefixBox.
 
             var bundlesButton = new Button();
-            bundlesButton.CssClass = "primary";
+            bundlesButton.CssClass = "bundlesButton";
             bundlesButton.Text = "Create Bundles";
             bundlesButton.ID = "bundlesButton";
-            backButton.Click += new EventHandler(bundlesButton_Click);
-            //System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text.txt", "testesttest");
+            //bundlesButton.
+            bundlesButton.Click += new EventHandler(bundlesButton_Click);
+            //System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text.txt", "here here 123");
 
             bundlesPanel.Controls.Add(bundleFolderLabel);
             bundlesPanel.Controls.Add(bundleFolderBox);
@@ -371,7 +405,18 @@ namespace ReleaseManager
             bundlesPanel.Controls.Add(bundlePrefixBox);
             bundlesPanel.Controls.Add(bundlesButton);
 
+            //ReleaseItems.Controls.Add(bundlesButton);
             ReleaseItems.Controls.Add(bundlesPanel);
+
+            var xxxButton = new Button();
+            xxxButton.Text = "XXX";
+            //btnViewReleaseItemsButton.CommandArgument = release.id;
+            xxxButton.CssClass = "xxx";
+            //xxxButton.
+            xxxButton.Click -= new EventHandler(bundlesButton_Click);
+            ReleaseItems.Controls.Add(xxxButton);
+
+            //ReleaseItems.Controls.Add(yyyButton);
 
             ////////////////////////////////////////////////////////
 
@@ -468,16 +513,30 @@ namespace ReleaseManager
             }
         }
 
-        void backButton_Click(object sender, EventArgs e)
-        {
-            hideAllPanels();
-            showReleases();
-        }
+        //void backButton_Click(object sender, EventArgs e)
+        //{
+        //    hideAllPanels();
+        //    showReleases();
+        //}
 
         void bundlesButton_Click(object sender, EventArgs e)
         {
             ////hideAllPanels();
             ////showReleases();
+
+            //const string BundleNamespace = @"http://www.sdltridion.com/ContentManager/Bundle";
+            //SchemaData bundleTypeSchema = getCoreServiceClient().GetVirtualFolderTypeSchema(BundleNamespace);
+            //string bundleSchemaId = bundleTypeSchema.Id;
+            //var bundle = (VirtualFolderData)getCoreServiceClient().GetDefaultData(Tridion.ContentManager.CoreService.Client.VirtualFolderData, "tcm:5-2199-2", new ReadOptions());
+            //bundle.Configuration = "<Bundle xmlns=\"http://www.sdltridion.com/ContentManager/Bundle\"><Items /></Bundle>";
+            //bundle.TypeSchema = new LinkToSchemaData { IdRef = bundleSchemaId };
+            //bundle.Title = "DJsNewBund";
+            //getCoreServiceClient().Create(bundle, new ReadOptions());
+
+            System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text.txt", "here here 999");
+
+            //ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
+            //rmRep.createBundles();
         }
 
         private static int CompareReleaseItems(ReleaseItem item1, ReleaseItem item2)
