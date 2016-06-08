@@ -7,6 +7,7 @@ using System.Text;
 using System.IO;
 using System.Resources;
 using System.Xml;
+using System.Web.UI.HtmlControls;
 namespace ReleaseManager
 {
     public partial class ManageReleases : System.Web.UI.Page
@@ -16,17 +17,36 @@ namespace ReleaseManager
         bool showDeletedReleases = false;
 
         // DJ
-        //private Button yyyButton;
+        //private Button bundlesButton = new Button();
+        private LiteralControl bundlesLiteralControl;
+        private Button zzzButton;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            zzzButton = new Button();
+            ////var yyyButton = new Button();
+            zzzButton.Text = "zzz";
+            zzzButton.CssClass = "zzz";
+            zzzButton.Click += new EventHandler(bundlesButton_Click);
+
             if (Request["showItemsInRelease"] != null && !IsPostBack)
             {
-                Button yyyButton = new Button();
-                ////var yyyButton = new Button();
-                yyyButton.Text = "yyy";
-                yyyButton.CssClass = "xxx";
-                yyyButton.Click += new EventHandler(bundlesButton_Click);
+                //Button yyyButton = new Button();
+                //////var yyyButton = new Button();
+                //yyyButton.Text = "yyy";
+                //yyyButton.CssClass = "xxx";
+                //yyyButton.Click += new EventHandler(bundlesButton_Click);
+
+                //bundlesButton = new Button();
+                //bundlesButton.CssClass = "bundlesButton";
+                //bundlesButton.Text = "Create Bundles (OLD)";
+                //bundlesButton.ID = "bundlesButton";
+                ////bundlesButton.Type
+                ////bundlesButton.
+                //bundlesButton.Click += new EventHandler(bundlesButton_Click);
+
+                //bundlesLiteralControl = new LiteralControl("<input type=\"button\" class=\"createBundles\" value=\"Create Bundles\" />");
+                //bundlesLiteralControl.Click = new EventHandler(bundlesButton_Click);
 
                 showItemsInRelease(Request["showItemsInRelease"]); //, yyyButton);
             }
@@ -125,6 +145,8 @@ namespace ReleaseManager
 
         private void showReleases(List<Release> releases)
         {
+            CreateBundlesPanel.Visible = false;
+
             PanelReleases.Controls.Remove(releaseListPanel);
             releaseListPanel.ID = "releaseList";
             releaseListPanel.Controls.Clear();
@@ -157,13 +179,28 @@ namespace ReleaseManager
                 var viewItems = new LiteralControl("<input type=\"button\" class=\"viewItems\" data-releaseId=\""+release.id+"\" value=\"View Items\" />");
                 controlPanel.Controls.Add(viewItems);
 
-                //yyyButton = new Button();
-                ////var yyyButton = new Button();
-                //yyyButton.Text = "yyy";
-                //yyyButton.CssClass = "xxx";
-                //yyyButton.Click += new EventHandler(bundlesButton_Click);
-                //controlPanel.Controls.Add(xxxButton);
-                
+                //var createBundsLit = new LiteralControl("<input type=\"button\" id=\"createBundles\" class=\"createBundles\" data-releaseId=\"" + release.id + "\" value=\"Create Bundles\" />");
+                //controlPanel.Controls.Add(createBundsLit);
+
+                //zzzButton = new Button();
+                //////var yyyButton = new Button();
+                //zzzButton.Text = "zzz";
+                //zzzButton.CssClass = "zzz";
+                //zzzButton.Click += new EventHandler(bundlesButton_Click);
+                //controlPanel.Controls.Add(zzzButton);
+
+                Button bundlesButton = new Button();
+                bundlesButton.CssClass = "bundlesButton";
+                bundlesButton.Text = "Create Bundles (OLD)";
+                bundlesButton.ID = "bundlesButton_" + release.id;
+                //bundlesButton.Type
+                //bundlesButton.
+                bundlesButton.Click += new EventHandler(bundlesButton_Click);
+                //controlPanel.Controls.Add(bundlesButton);
+                //releaseListPanel.Controls.Add(bundlesButton);
+                PanelReleases.Controls.Add(bundlesButton);
+                //ReleaseItems.Controls.Add(bundlesButton);
+
 
                 ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
                 if(rmRep.releaseContainsErrors(release))
@@ -307,10 +344,17 @@ namespace ReleaseManager
         }
 
 
-
-
-        void showItemsInRelease(string releaseId) //, Button yyyButton)
+        // DJ
+        void showBundles(string releaseId)
         {
+            System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text1.txt", "bundlebundlebundle");
+        }
+
+
+        private void showItemsInRelease(string releaseId) //, Button yyyButton)
+        {
+            CreateBundlesPanel.Visible = true;
+
             ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
             var release = rmRep.getRelease(releaseId);
 
@@ -331,9 +375,9 @@ namespace ReleaseManager
 
            
 
-            ////var backButton = new LiteralControl("<input type=\"button\" id=\"backButton\" class=\"primary\" value=\"Back to Releases\" />");
+            var backButton = new LiteralControl("<input type=\"button\" id=\"backButton\" class=\"primary\" value=\"Back to Releases\" />");
 
-            //ReleaseItems.Controls.Add(backButton);
+            ReleaseItems.Controls.Add(backButton);
            
 
             var notesPanel = new Panel();
@@ -367,54 +411,56 @@ namespace ReleaseManager
 
             ////////////////////////////////////////////////////
 
-            var bundlesPanel = new Panel();
-            bundlesPanel.ID = "bundlesPanel";
+            //var bundlesPanel = new Panel();
+            //bundlesPanel.ID = "bundlesPanel";
 
-            var bundleFolderLabel = new Label();
-            bundleFolderLabel.ID = "bundleFolderLabel";
-            bundleFolderLabel.Text = "Bundle Folder:";
+            //var bundleFolderLabel = new Label();
+            //bundleFolderLabel.ID = "bundleFolderLabel";
+            //bundleFolderLabel.Text = "Bundle Folder:";
 
-            var bundleFolderBox = new TextBox();
-            bundleFolderBox.ID = "bundleFolderBox";
-            bundleFolderBox.Columns = 28;
-            bundleFolderBox.Rows = 1;
-            bundleFolderBox.TextMode = TextBoxMode.SingleLine;
+            //var bundleFolderBox = new TextBox();
+            //bundleFolderBox.ID = "bundleFolderBox";
+            //bundleFolderBox.Columns = 28;
+            //bundleFolderBox.Rows = 1;
+            //bundleFolderBox.TextMode = TextBoxMode.SingleLine;
 
-            var bundlePrefixLabel = new Label();
-            bundlePrefixLabel.ID = "bundlePrefixLabel";
-            bundlePrefixLabel.Text = "Bundle Prefix:";
+            //var bundlePrefixLabel = new Label();
+            //bundlePrefixLabel.ID = "bundlePrefixLabel";
+            //bundlePrefixLabel.Text = "Bundle Prefix:";
 
-            var bundlePrefixBox = new TextBox();
-            bundlePrefixBox.ID = "bundlePrefixBox";
-            bundlePrefixBox.Columns = 28;
-            bundlePrefixBox.Rows = 1;
-            bundlePrefixBox.TextMode = TextBoxMode.SingleLine;
+            //var bundlePrefixBox = new TextBox();
+            //bundlePrefixBox.ID = "bundlePrefixBox";
+            //bundlePrefixBox.Columns = 28;
+            //bundlePrefixBox.Rows = 1;
+            //bundlePrefixBox.TextMode = TextBoxMode.SingleLine;
             //bundlePrefixBox.
 
-            var bundlesButton = new Button();
-            bundlesButton.CssClass = "bundlesButton";
-            bundlesButton.Text = "Create Bundles";
-            bundlesButton.ID = "bundlesButton";
-            //bundlesButton.
-            bundlesButton.Click += new EventHandler(bundlesButton_Click);
-            //System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text.txt", "here here 123");
+            //var bundlesButton = new Button();
+            //bundlesButton.CssClass = "bundlesButton";
+            //bundlesButton.Text = "Create Bundles";
+            //bundlesButton.ID = "bundlesButtonXXX";
+            //////bundlesButton.
+            //bundlesButton.Click += new EventHandler(bundlesButton_Click);
+            ////System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text.txt", "here here 123");
 
-            bundlesPanel.Controls.Add(bundleFolderLabel);
-            bundlesPanel.Controls.Add(bundleFolderBox);
-            bundlesPanel.Controls.Add(bundlePrefixLabel);
-            bundlesPanel.Controls.Add(bundlePrefixBox);
-            bundlesPanel.Controls.Add(bundlesButton);
+            //bundlesPanel.Controls.Add(bundleFolderLabel);
+            //bundlesPanel.Controls.Add(bundleFolderBox);
+            //bundlesPanel.Controls.Add(bundlePrefixLabel);
+            //bundlesPanel.Controls.Add(bundlePrefixBox);
+            //bundlesPanel.Controls.Add(bundlesButton);
 
             //ReleaseItems.Controls.Add(bundlesButton);
-            ReleaseItems.Controls.Add(bundlesPanel);
+            ////ReleaseItems.Controls.Add(bundlesPanel);
 
-            var xxxButton = new Button();
-            xxxButton.Text = "XXX";
-            //btnViewReleaseItemsButton.CommandArgument = release.id;
-            xxxButton.CssClass = "xxx";
-            //xxxButton.
-            xxxButton.Click -= new EventHandler(bundlesButton_Click);
-            ReleaseItems.Controls.Add(xxxButton);
+            //var xxxButton = new Button();
+            //xxxButton.Text = "XXX";
+            ////btnViewReleaseItemsButton.CommandArgument = release.id;
+            //xxxButton.CssClass = "xxx";
+            ////xxxButton.
+            //xxxButton.Click -= new EventHandler(bundlesButton_Click);
+            //ReleaseItems.Controls.Add(xxxButton);
+
+            //ReleaseItems.Controls.Add(zzzButton);
 
             //ReleaseItems.Controls.Add(yyyButton);
 
@@ -533,7 +579,7 @@ namespace ReleaseManager
             //bundle.Title = "DJsNewBund";
             //getCoreServiceClient().Create(bundle, new ReadOptions());
 
-            System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text.txt", "here here 999");
+            System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text.txt", "here1 XXX");
 
             //ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
             //rmRep.createBundles();
@@ -609,6 +655,59 @@ namespace ReleaseManager
 
             hideAllPanels();
             addReleaseForm.Visible = true;
+        }
+
+        protected void createBundClick(object sender, EventArgs e)
+        {
+            ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
+
+            string releaseId = Request["showItemsInRelease"];
+
+            showItemsInRelease(releaseId);
+
+            // Test you can retrieve values from bundle folder and prefix text boxes:
+            //CreateBundlesPanel.Controls.;
+            string bundleFolder = "";
+            string bundlePrefix = "";
+            // TODO: Figure out a better way to retrieve values from text boxes:
+            int count = 0;
+            foreach(Control c in CreateBundlesPanel.Controls)
+            {
+                if (c.GetType().ToString() == "System.Web.UI.HtmlControls.HtmlInputText" && (count == 0))
+                {
+                    // The bundle folder is the first System.Web.UI.HtmlControls.HtmlInputText.
+                    bundleFolder = ((HtmlInputText)c).Value;
+                    count++;
+                }
+                else if (c.GetType().ToString() == "System.Web.UI.HtmlControls.HtmlInputText" && (count == 1))
+                {
+                    // The bundle prefix is the second System.Web.UI.HtmlControls.HtmlInputText.
+                    bundlePrefix = ((HtmlInputText)c).Value;
+                    count++;
+                }
+            }
+
+            string n = String.Format("{0}", Request.Form["item"]);
+
+            Release release = rmRep.getRelease(releaseId);
+
+            string ids = "";
+
+            foreach (var item in release.items)
+            {
+                // TODO
+                ids += item.URI;
+            }
+            // TODO:
+            // For each item, add it's root publication to a list of pubs (if it's not already in the list)
+            // Once for loop is done, the list of pubs will represent all locations where a bundle is needed.
+            // You will probably want to check for each pub in said list whether it is a child of the publication
+            // specified as the first part of the path given by"bundleFolder".
+            // Pass this list of pubs to createBundles() call below for processing...
+
+            System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text.txt", "test log output: " + ids);
+
+            //rmRep.createBundles(bundleFolder, bundlePrefix);
         }
 
         void hideAllPanels()

@@ -24,10 +24,13 @@ ADS.Tridion.ReleaseManager = {
         parent.adjustNotesSize();
 
         $('.viewItems').on('click', parent.handleViewItemsClick);
-        //$('#backButton').on('click', parent.handleBackToReleasesClick);
+        $('#backButton').on('click', parent.handleBackToReleasesClick);
 
         // DJ
         //$('.bundlesButton').on('click', parent.handleCreateBundlesClick);
+
+        //$('.createBundles').click(parent.handleBundlesClick);
+        //$('.createBundles').on('click', parent.handleBundlesClick);
 
         $notesBox = $('#notesBox');
         if ($notesBox.length == 1) {
@@ -78,9 +81,9 @@ ADS.Tridion.ReleaseManager = {
         $('#resultMessage').text(data.d.message).show();
     },
 
-    /*handleBackToReleasesClick: function (e) {
+    handleBackToReleasesClick: function (e) {
     window.location = '?';
-    },*/
+    },
 
     handleViewItemsClick: function (e) {
         window.location = "?showItemsInRelease=" + $(e.currentTarget).data('releaseid');
@@ -103,6 +106,23 @@ ADS.Tridion.ReleaseManager = {
             contentType: "application/json",
             dataType: 'json'
         });
+    },
+
+    //handleCreateBundlesClick: function (e) {
+    //    var parent = ADS.Tridion.ReleaseManager;
+    //    var data = { releaseId: $('#releaseId').val() };
+    //    $.ajax({
+    //        method: 'POST',
+    //        url: ADS.Tridion.ReleaseManager.serviceUrl + '/CreateBundles',
+    //        data: JSON.stringify(data),
+    //        //success: ADS.Tridion.ReleaseManager.handleCreateBundlesSuccess,
+    //        contentType: "application/json",
+    //        dataType: 'json'
+    //    });
+    //},
+
+    handleBundlesClick: function (e) {
+        window.location = "?showBundles=" + $(e.currentTarget).data('releaseid');
     },
 
     handleSaveNotesFail: function () {

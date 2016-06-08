@@ -365,7 +365,7 @@ namespace ReleaseManager
                 {
                     RepositoryLocalObjectData tridionItem = (RepositoryLocalObjectData)tridionClient.Read(item.URI, new ReadOptions());
                     XmlNode webDavNode = db.SelectSingleNode("//items/item[@uri='" + item.URI + "'][@release='" + release.id + "']/webdav_url");
-                    System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text2.txt", "release.id: " + release.id);
+                    //System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text2.txt", "release.id: " + release.id);
                     //if (webDavNode.InnerText != tridionItem.LocationInfo.WebDavUrl)
                    // {
                         webDavNode.InnerText = tridionItem.LocationInfo.WebDavUrl;
@@ -640,20 +640,36 @@ namespace ReleaseManager
 
         }
 
-        public void createBundles()
+        public bool createBundles(string bundleFolder, string bundlePrefix)
         {
-            System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text1.txt", "here here 333");
-
             const string BundleNamespace = @"http://www.sdltridion.com/ContentManager/Bundle";
             SchemaData bundleTypeSchema = getCoreServiceClient().GetVirtualFolderTypeSchema(BundleNamespace);
             string bundleSchemaId = bundleTypeSchema.Id;
-            var bundle = (VirtualFolderData)getCoreServiceClient().GetDefaultData(Tridion.ContentManager.CoreService.Client.ItemType.VirtualFolder, "tcm:5-2199-2", new ReadOptions());
+
+            SessionAwareCoreServiceClient client = getCoreServiceClient();
+
+            if(!bundleFolder.StartsWith("tcm:"))
+            {
+                // If it's not a tcm ID, convert it from webdav to tcm ID.
+
+                // TODO: Check if bundle prefix starts with webdav, and add it if now
+                // TODO: Do I need to switch / to \ or vice versa?
+
+                bundleFolder = client.GetTcmUri(bundleFolder, null, null);
+            }
+
+            // TODO:
+            string publicationSuffix = "";
+
+            var bundle = (VirtualFolderData)getCoreServiceClient().GetDefaultData(Tridion.ContentManager.CoreService.Client.ItemType.VirtualFolder, bundleFolder, new ReadOptions());
             bundle.Configuration = "<Bundle xmlns=\"http://www.sdltridion.com/ContentManager/Bundle\"><Items /></Bundle>";
             bundle.TypeSchema = new LinkToSchemaData { IdRef = bundleSchemaId };
-            bundle.Title = "DJsNewBund2";
-            getCoreServiceClient().Create(bundle, new ReadOptions());
+            bundle.Title = bundlePrefix + publicationSuffix;
+            client.Create(bundle, new ReadOptions());
 
-            System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text2.txt", "here here 444");
+            //var release = this.getRelease(releaseId);
+
+            return true;
         }
 
         /// <summary>

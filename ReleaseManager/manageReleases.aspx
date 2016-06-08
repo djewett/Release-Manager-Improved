@@ -10,6 +10,14 @@
 <body style="background-image:url(images/splash_gradient.png)">
     <form id="form1" runat="server" onsubmit="dropXmlFieldsFromSubmit()">
     <div>
+
+        <asp:Panel ID="CreateBundlesPanel" runat="server">
+            <label>Bundle Folder:</label>
+            <input type="text" id="bundleFolder" runat="server" />
+            <label>Bundle Prefix:</label>
+            <input type="text" id="bundlePrefix" runat="server" />
+            <asp:Button runat="server" id="newButton1" OnClick="createBundClick" Text="Create Bundles" />
+        </asp:Panel>
         
         <asp:Panel ID="PanelReleases" runat="server">
             <h3>Available Releases</h3>
