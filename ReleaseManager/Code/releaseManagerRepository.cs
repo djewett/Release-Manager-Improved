@@ -640,6 +640,7 @@ namespace ReleaseManager
 
         }
 
+        // TODO: rename to createBundle (singluar) if you end up using it to process just one bundle
         public bool createBundles(string bundleFolder, string bundlePrefix)
         {
             const string BundleNamespace = @"http://www.sdltridion.com/ContentManager/Bundle";

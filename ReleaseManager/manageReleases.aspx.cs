@@ -189,16 +189,16 @@ namespace ReleaseManager
                 //zzzButton.Click += new EventHandler(bundlesButton_Click);
                 //controlPanel.Controls.Add(zzzButton);
 
-                Button bundlesButton = new Button();
-                bundlesButton.CssClass = "bundlesButton";
-                bundlesButton.Text = "Create Bundles (OLD)";
-                bundlesButton.ID = "bundlesButton_" + release.id;
+                //Button bundlesButton = new Button();
+                //bundlesButton.CssClass = "bundlesButton";
+                //bundlesButton.Text = "Create Bundles (OLD)";
+                //bundlesButton.ID = "bundlesButton_" + release.id;
                 //bundlesButton.Type
                 //bundlesButton.
-                bundlesButton.Click += new EventHandler(bundlesButton_Click);
+                //bundlesButton.Click += new EventHandler(bundlesButton_Click);
                 //controlPanel.Controls.Add(bundlesButton);
                 //releaseListPanel.Controls.Add(bundlesButton);
-                PanelReleases.Controls.Add(bundlesButton);
+                //PanelReleases.Controls.Add(bundlesButton);
                 //ReleaseItems.Controls.Add(bundlesButton);
 
 
@@ -579,10 +579,6 @@ namespace ReleaseManager
             //bundle.Title = "DJsNewBund";
             //getCoreServiceClient().Create(bundle, new ReadOptions());
 
-            System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text.txt", "here1 XXX");
-
-            //ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
-            //rmRep.createBundles();
         }
 
         private static int CompareReleaseItems(ReleaseItem item1, ReleaseItem item2)
@@ -661,8 +657,8 @@ namespace ReleaseManager
         {
             ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
 
+            // Call showItemsInRelease() to ensure clicking the Create Bundles button does NOT return us to the main Release Manager dialog
             string releaseId = Request["showItemsInRelease"];
-
             showItemsInRelease(releaseId);
 
             // Test you can retrieve values from bundle folder and prefix text boxes:
@@ -687,16 +683,52 @@ namespace ReleaseManager
                 }
             }
 
-            string n = String.Format("{0}", Request.Form["item"]);
+            ////string n = String.Format("{0}", Request.Form["item"]);
 
             Release release = rmRep.getRelease(releaseId);
 
             string ids = "";
 
+            var bundleFolders = new List<string>();
+
+            // Get the common part of the bundle path that each relevant publication's bundle folder will have.
+            // e.g. \000 Empty Parent\Building Blocks\Bundles -> \Building Blocks\Bundles
+            // Note: Folders in Tridion are not allowed to contain \, which simplifies this part of the processing.
+            string bundleFolderWithoutPrefix = bundleFolder.Remove(0, 1);
+            int suffixFirstSlash = bundleFolderWithoutPrefix.IndexOf('\\');
+            string bundleFolderSuffix = bundleFolderWithoutPrefix.Substring(suffixFirstSlash);
+            // First replace all / with %2F, then replace all \ with /.
+            bundleFolderSuffix = bundleFolderSuffix.Replace("/", "%2F").Replace('\\', '/');
+
+            //bundleFolderSuffix = HttpUtility.HtmlEncode(bundleFolderSuffix);
+            //TODO: iterate through character by character, changing all / to encoded, changing all \ to /, and encoding all other characters...
+            // Folders in Tridion are not allowed to contain '\', but they can contain '/' (encoded as '%2F') and "%2F" (encoded as '%252F'),
+            // so here we need to carefully replace all of these, and in the correct order, to convert to a valid webdav format (which uses /
+            // in place of \). Everything else should in theory be OK to leave in the path (webdav in this instance can be a mixture of encoded and non-encoded)
+            // TODO: test a folder with 
+            //bundleFolderSuffix = Server.HtmlEncode(bundleFolderSuffix);//.Replace('\\', '/');
+            //bundleFolderSuffix.Replace("%2F")
+
             foreach (var item in release.items)
             {
                 // TODO
-                ids += item.URI;
+                //ids += item.URI + System.Environment.NewLine;
+                ids += item.WEBDAV_URL + System.Environment.NewLine + bundleFolderSuffix + System.Environment.NewLine;
+                //ids += Server.HtmlEncode();
+
+                // Decided to go with string manipulation to get the list of publication names, instead of using client as it seems like it would be slower
+                // Remove "/webdav/" prefix.
+                // e.g. /webdav/000%20Empty%20Parent/Building%20Blocks/Content/Folder%201
+                string webdavWithoutPrefix = item.WEBDAV_URL.Remove(0, 8);
+                int indexOfFirstSlash = webdavWithoutPrefix.IndexOf('/');
+                // e.g.: 000%20Empty%20Parent/Building%20Blocks/Content/Folder%201 < indexOfFirstSlash=20
+                string pub = webdavWithoutPrefix.Substring(0, indexOfFirstSlash);
+                //ids += pub + System.Environment.NewLine;
+                //ids += bundleFolderSuffix + System.Environment.NewLine + System.Environment.NewLine;
+
+               // ids += "/webdav/" + pub + bundleFolderSuffix + System.Environment.NewLine;
+                // Why remove /webdav/ if we're just going to add it back?:
+                bundleFolders.Add("/webdav/" + pub + bundleFolderSuffix);
             }
             // TODO:
             // For each item, add it's root publication to a list of pubs (if it's not already in the list)
@@ -707,7 +739,12 @@ namespace ReleaseManager
 
             System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text.txt", "test log output: " + ids);
 
-            //rmRep.createBundles(bundleFolder, bundlePrefix);
+            foreach(var currBundleFolder in bundleFolders)
+            {
+                rmRep.createBundles(currBundleFolder, bundlePrefix + currBundleFolder);
+            }
+
+            //rmRep.createBundles("/webdav/030C Content/Building Blocks/New Folder %2F > <", "terwwrgqrqegqregXXXXXX");
         }
 
         void hideAllPanels()
