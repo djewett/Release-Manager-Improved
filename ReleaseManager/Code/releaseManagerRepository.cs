@@ -641,7 +641,7 @@ namespace ReleaseManager
         }
 
         // TODO: rename to createBundle (singluar) if you end up using it to process just one bundle
-        public bool createBundles(string bundleFolder, string bundlePrefix)
+        public bool createBundle(string bundleFolder, string bundlePrefix)
         {
             const string BundleNamespace = @"http://www.sdltridion.com/ContentManager/Bundle";
             SchemaData bundleTypeSchema = getCoreServiceClient().GetVirtualFolderTypeSchema(BundleNamespace);
@@ -659,16 +659,14 @@ namespace ReleaseManager
                 bundleFolder = client.GetTcmUri(bundleFolder, null, null);
             }
 
-            // TODO:
-            string publicationSuffix = "";
-
             var bundle = (VirtualFolderData)getCoreServiceClient().GetDefaultData(Tridion.ContentManager.CoreService.Client.ItemType.VirtualFolder, bundleFolder, new ReadOptions());
             bundle.Configuration = "<Bundle xmlns=\"http://www.sdltridion.com/ContentManager/Bundle\"><Items /></Bundle>";
             bundle.TypeSchema = new LinkToSchemaData { IdRef = bundleSchemaId };
-            bundle.Title = bundlePrefix + publicationSuffix;
+            // For the bundle suffix, use the title of the publication the bundle is being created in, which spaces replaced/
+            // e.g. "000 Empty Parent" -> "--000_Empty_Parent"
+            string bundleSuffix = "--" + bundle.BluePrintInfo.OwningRepository.Title.Replace(" ", "_");
+            bundle.Title = bundlePrefix + bundleSuffix;
             client.Create(bundle, new ReadOptions());
-
-            //var release = this.getRelease(releaseId);
 
             return true;
         }

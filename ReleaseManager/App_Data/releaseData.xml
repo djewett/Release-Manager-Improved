@@ -32,5 +32,23 @@
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>
+    <item uri="tcm:5-1087-2" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-06-08T23:54:12.9853396Z" id="76e8fe34-6b1c-4c35-af67-8401c9ad53bb">
+      <webdav_url>/webdav/000%20Empty%20Parent/Building%20Blocks/Content/Folder%201</webdav_url>
+      <title>Folder 1</title>
+      <is_shared>False</is_shared>
+      <subtype>0</subtype>
+    </item>
+    <item uri="tcm:5-5209-2" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-06-09T01:13:07.1008214Z" id="914371f7-f944-4c5d-9447-95cb42cf59cc">
+      <webdav_url>/webdav/000%20Empty%20Parent/Building%20Blocks/New%20Folder%20%2F</webdav_url>
+      <title>New Folder /</title>
+      <is_shared>False</is_shared>
+      <subtype>0</subtype>
+    </item>
+    <item uri="tcm:1007-5210-2" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-06-09T01:31:50.0799737Z" id="a1438b7a-d6ef-4507-ab8e-4e69753e4e35">
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/New%20Folder%20%252F</webdav_url>
+      <title>New Folder %2F</title>
+      <is_shared>False</is_shared>
+      <subtype>0</subtype>
+    </item>
   </items>
 </db>

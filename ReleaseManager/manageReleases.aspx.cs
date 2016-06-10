@@ -8,6 +8,7 @@ using System.IO;
 using System.Resources;
 using System.Xml;
 using System.Web.UI.HtmlControls;
+using Tridion.ContentManager.CoreService.Client;
 namespace ReleaseManager
 {
     public partial class ManageReleases : System.Web.UI.Page
@@ -653,21 +654,25 @@ namespace ReleaseManager
             addReleaseForm.Visible = true;
         }
 
-        protected void createBundClick(object sender, EventArgs e)
+
+
+
+
+        private string convertPathToWebDav(string path)
         {
-            ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
+            // First replace all / with %2F, then replace all \ with /.
+            var webdav = path.Replace("/", "%2F").Replace('\\', '/');
+            // Don't URL encode the string because that will replace / characters, which we need.
+            //webdav = HttpUtility.UrlEncode(webdav);
+            webdav = "/webdav" + webdav;
+            return webdav;
+        }
 
-            // Call showItemsInRelease() to ensure clicking the Create Bundles button does NOT return us to the main Release Manager dialog
-            string releaseId = Request["showItemsInRelease"];
-            showItemsInRelease(releaseId);
-
-            // Test you can retrieve values from bundle folder and prefix text boxes:
-            //CreateBundlesPanel.Controls.;
-            string bundleFolder = "";
-            string bundlePrefix = "";
+        private void retrieveBundleInputs(ref string bundleFolder, ref string bundlePrefix)
+        {
             // TODO: Figure out a better way to retrieve values from text boxes:
             int count = 0;
-            foreach(Control c in CreateBundlesPanel.Controls)
+            foreach (Control c in CreateBundlesPanel.Controls)
             {
                 if (c.GetType().ToString() == "System.Web.UI.HtmlControls.HtmlInputText" && (count == 0))
                 {
@@ -682,40 +687,98 @@ namespace ReleaseManager
                     count++;
                 }
             }
+        }
 
-            ////string n = String.Format("{0}", Request.Form["item"]);
+        private string validateFolderInput(string bundleFolderInput, ReleaseManagerRepository rmRep)
+        {
+            string bundleFolderPath = "";
 
+            var client = rmRep.getCoreServiceClient();
+
+            try
+            {
+                // Accept a path, webdav or tcm (with or with the "tcm:" prefix)
+                string bundleFolderTcm = "";
+                //TODO: Add a case for when the bundleFolder starts with "/webdav/"
+                if (bundleFolderInput.StartsWith("/webdav/"))
+                {
+                    bundleFolderTcm = bundleFolderInput;
+                }
+                else if (bundleFolderInput.StartsWith("\\"))
+                {
+                    // If the folder string starts with \, then assume it's entered as a path
+                    // Check if the first part of the path is a publication - if it's not, assume we are working with a path suffix.
+                    var bundleFolderAsWebdav = convertPathToWebDav(bundleFolderInput);
+                    System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text.txt", bundleFolderAsWebdav);
+                    bundleFolderTcm = client.GetTcmUri(bundleFolderAsWebdav, null, null);
+                }
+                else if (!bundleFolderInput.StartsWith("tcm:"))
+                {
+                    // If it's not prefixed with "tcm:", assume it's otherwise a valid tcm ID (i.e. "5-5209-2" instead of "tcm:5-5209-2") and
+                    // prepend the "tcm:" prefix.
+                    bundleFolderTcm = "tcm:" + bundleFolderInput;
+                }
+                else
+                {
+                    // If bundleFolder does not start with \ (i.e. a path), but starts with "tcm:" then assume it's entered as a tcm ID.
+                    bundleFolderTcm = bundleFolderInput;
+                }
+
+                var bundleFolderItem = (OrganizationalItemData)client.GetDefaultData(Tridion.ContentManager.CoreService.Client.ItemType.VirtualFolder, bundleFolderTcm, new ReadOptions());
+                bundleFolderPath = bundleFolderItem.LocationInfo.Path;
+            }
+            catch (Exception)
+            {
+                Label lbl = new Label();
+                lbl.Text = "Invalid Folder: XXX";
+                lbl.ID = "createBundlesErrorMessage";
+                lbl.ForeColor = System.Drawing.Color.Red;
+                CreateBundlesPanel.Controls.Add(lbl);
+            }
+
+            return bundleFolderPath;
+        }
+
+        protected void createBundClick(object sender, EventArgs e)
+        {
+            //TODO: try to remove error label immediately whenever this button is clicked, if it exists
+
+            // Call showItemsInRelease() to ensure clicking the Create Bundles button does NOT return us to the main Release Manager dialog
+            string releaseId = Request["showItemsInRelease"];
+            showItemsInRelease(releaseId);
+
+            // Test you can retrieve values from bundle folder and prefix text boxes:
+            string bundleFolderInput = "";
+            string bundlePrefixInput = "";
+            retrieveBundleInputs(ref bundleFolderInput, ref bundlePrefixInput);
+
+            ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
             Release release = rmRep.getRelease(releaseId);
 
-            string ids = "";
+            // TODO: perform validations of input bundleFolder and output descriptive error message under bundles panel here.
 
-            var bundleFolders = new List<string>();
+            string bundleFolderPath = validateFolderInput(bundleFolderInput, rmRep);
+            if(string.IsNullOrEmpty(bundleFolderPath))
+            {
+                // Path could not be successfully retrieved, so cancel executing the rest of this method.
+                return;
+            }
+
+            var bundleFoldersAsWebdavs = new List<string>();
 
             // Get the common part of the bundle path that each relevant publication's bundle folder will have.
             // e.g. \000 Empty Parent\Building Blocks\Bundles -> \Building Blocks\Bundles
-            // Note: Folders in Tridion are not allowed to contain \, which simplifies this part of the processing.
-            string bundleFolderWithoutPrefix = bundleFolder.Remove(0, 1);
+            // Note: Folders in Tridion are not allowed to contain \
+            string bundleFolderWithoutPrefix = bundleFolderPath.Remove(0, 1);
             int suffixFirstSlash = bundleFolderWithoutPrefix.IndexOf('\\');
             string bundleFolderSuffix = bundleFolderWithoutPrefix.Substring(suffixFirstSlash);
             // First replace all / with %2F, then replace all \ with /.
             bundleFolderSuffix = bundleFolderSuffix.Replace("/", "%2F").Replace('\\', '/');
 
-            //bundleFolderSuffix = HttpUtility.HtmlEncode(bundleFolderSuffix);
-            //TODO: iterate through character by character, changing all / to encoded, changing all \ to /, and encoding all other characters...
-            // Folders in Tridion are not allowed to contain '\', but they can contain '/' (encoded as '%2F') and "%2F" (encoded as '%252F'),
-            // so here we need to carefully replace all of these, and in the correct order, to convert to a valid webdav format (which uses /
-            // in place of \). Everything else should in theory be OK to leave in the path (webdav in this instance can be a mixture of encoded and non-encoded)
-            // TODO: test a folder with 
-            //bundleFolderSuffix = Server.HtmlEncode(bundleFolderSuffix);//.Replace('\\', '/');
-            //bundleFolderSuffix.Replace("%2F")
+            // TODO: consider URL encoding webdav, as suggeted should be done here: http://tridion.stackexchange.com/questions/11686/get-item-by-title-and-path-using-core-service
 
             foreach (var item in release.items)
             {
-                // TODO
-                //ids += item.URI + System.Environment.NewLine;
-                ids += item.WEBDAV_URL + System.Environment.NewLine + bundleFolderSuffix + System.Environment.NewLine;
-                //ids += Server.HtmlEncode();
-
                 // Decided to go with string manipulation to get the list of publication names, instead of using client as it seems like it would be slower
                 // Remove "/webdav/" prefix.
                 // e.g. /webdav/000%20Empty%20Parent/Building%20Blocks/Content/Folder%201
@@ -723,29 +786,33 @@ namespace ReleaseManager
                 int indexOfFirstSlash = webdavWithoutPrefix.IndexOf('/');
                 // e.g.: 000%20Empty%20Parent/Building%20Blocks/Content/Folder%201 < indexOfFirstSlash=20
                 string pub = webdavWithoutPrefix.Substring(0, indexOfFirstSlash);
-                //ids += pub + System.Environment.NewLine;
-                //ids += bundleFolderSuffix + System.Environment.NewLine + System.Environment.NewLine;
 
-               // ids += "/webdav/" + pub + bundleFolderSuffix + System.Environment.NewLine;
                 // Why remove /webdav/ if we're just going to add it back?:
-                bundleFolders.Add("/webdav/" + pub + bundleFolderSuffix);
+                string currBundleFolderAsWebdav = "/webdav/" + pub + bundleFolderSuffix;
+                if (!bundleFoldersAsWebdavs.Contains(currBundleFolderAsWebdav))
+                {
+                    bundleFoldersAsWebdavs.Add(currBundleFolderAsWebdav);
+
+                    rmRep.createBundle(currBundleFolderAsWebdav, bundlePrefixInput);
+                }
+
+                // TODO: add items to bundle
             }
-            // TODO:
-            // For each item, add it's root publication to a list of pubs (if it's not already in the list)
-            // Once for loop is done, the list of pubs will represent all locations where a bundle is needed.
-            // You will probably want to check for each pub in said list whether it is a child of the publication
+            // TODO: You will probably want to check for each pub in list whether it is a child of the publication
             // specified as the first part of the path given by"bundleFolder".
-            // Pass this list of pubs to createBundles() call below for processing...
 
-            System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text.txt", "test log output: " + ids);
-
-            foreach(var currBundleFolder in bundleFolders)
-            {
-                rmRep.createBundles(currBundleFolder, bundlePrefix + currBundleFolder);
-            }
-
-            //rmRep.createBundles("/webdav/030C Content/Building Blocks/New Folder %2F > <", "terwwrgqrqegqregXXXXXX");
+            //foreach (var currBundleFolderAsWebdav in bundleFoldersAsWebdavs)
+            //{
+            //    rmRep.createBundle(currBundleFolderAsWebdav, bundlePrefixInput);
+            //}
         }
+
+
+
+
+
+
+
 
         void hideAllPanels()
         {
