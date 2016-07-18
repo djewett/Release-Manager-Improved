@@ -301,7 +301,7 @@ namespace ReleaseManager
                 // get the item
                 RepositoryLocalObjectData tridionItem = (RepositoryLocalObjectData)tridionClient.Read(item.URI, new ReadOptions());
 
-                System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text.txt", item.WEBDAV_URL + "," + tridionItem.LocationInfo.WebDavUrl);
+                //System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text.txt", item.WEBDAV_URL + "," + tridionItem.LocationInfo.WebDavUrl);
                 // if the webdav name is incorrect try and fix it
                 if (item.WEBDAV_URL != tridionItem.LocationInfo.WebDavUrl)
                 {
@@ -320,6 +320,22 @@ namespace ReleaseManager
             }
         }
 
+
+        public bool isItemRenamed(ReleaseItem item, string releaseId)
+        {
+            bool renamed = false;
+
+            SessionAwareCoreServiceClient tridionClient = getCoreServiceClient();
+
+            if (tridionClient.IsExistingObject(item.URI))
+            {
+                    // get the item
+                    RepositoryLocalObjectData tridionItem = (RepositoryLocalObjectData)tridionClient.Read(item.URI, new ReadOptions());
+                    renamed = item.WEBDAV_URL != tridionItem.LocationInfo.WebDavUrl;
+            }
+
+            return renamed;
+        }
 
         public void updateItemDetails(ReleaseItem item, string releaseId)
         {

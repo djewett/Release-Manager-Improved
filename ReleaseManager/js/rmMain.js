@@ -23,6 +23,8 @@ ADS.Tridion.ReleaseManager = {
         $('.viewItem').click(parent.handleViewItemClick);
         parent.adjustNotesSize();
 
+        $('.refreshRenamedButton').click(parent.handleRefreshRenamedItemClick);
+
         $('.viewItems').on('click', parent.handleViewItemsClick);
         $('#backButton').on('click', parent.handleBackToReleasesClick);
 
@@ -188,6 +190,10 @@ ADS.Tridion.ReleaseManager = {
             window.open(openerUrl, "viewItem", "", false);
         }
     }
+
+    //handleRefreshRenamedItemClick: function (e) {
+    //    $('.refreshRenamedButton').val("xxx");
+    //}
 };
 
 $(function () {

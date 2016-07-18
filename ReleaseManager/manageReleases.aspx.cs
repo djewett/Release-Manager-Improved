@@ -30,25 +30,8 @@ namespace ReleaseManager
             zzzButton.CssClass = "zzz";
             zzzButton.Click += new EventHandler(bundlesButton_Click);
 
-            if (Request["showItemsInRelease"] != null && !IsPostBack)
+            if (Request["showItemsInRelease"] != null)// && !IsPostBack)
             {
-                //Button yyyButton = new Button();
-                //////var yyyButton = new Button();
-                //yyyButton.Text = "yyy";
-                //yyyButton.CssClass = "xxx";
-                //yyyButton.Click += new EventHandler(bundlesButton_Click);
-
-                //bundlesButton = new Button();
-                //bundlesButton.CssClass = "bundlesButton";
-                //bundlesButton.Text = "Create Bundles (OLD)";
-                //bundlesButton.ID = "bundlesButton";
-                ////bundlesButton.Type
-                ////bundlesButton.
-                //bundlesButton.Click += new EventHandler(bundlesButton_Click);
-
-                //bundlesLiteralControl = new LiteralControl("<input type=\"button\" class=\"createBundles\" value=\"Create Bundles\" />");
-                //bundlesLiteralControl.Click = new EventHandler(bundlesButton_Click);
-
                 showItemsInRelease(Request["showItemsInRelease"]); //, yyyButton);
             }
             else
@@ -58,7 +41,7 @@ namespace ReleaseManager
                 showAll.Text = "Include finalized releases";
                 showAll.AutoPostBack = true;
                 showAll.CheckedChanged += new EventHandler(showAll_CheckedChanged);
-                
+
                 //TODO: fix this
                 showAll.Visible = false;
 
@@ -67,8 +50,26 @@ namespace ReleaseManager
                 txtExportSettings.Attributes["onclick"] = "this.select();";
                 txtImportSettings.Attributes["onclick"] = "this.select();";
                 exportXml.Attributes["onclick"] = "this.select();";
+                //loadReleases();
             }
-            
+        }
+
+        private void loadReleases()
+        {
+            showDeletedReleases = true; // (Session.Contents["showDeletedReleases"] != null) ? (bool)Session.Contents["showDeletedReleases"] : false;
+            showAll.ID = "showAll";
+            showAll.Text = "Include finalized releases";
+            showAll.AutoPostBack = true;
+            showAll.CheckedChanged += new EventHandler(showAll_CheckedChanged);
+
+            //TODO: fix this
+            showAll.Visible = false;
+
+            showReleases();
+            ReleaseItems.CssClass = "";
+            txtExportSettings.Attributes["onclick"] = "this.select();";
+            txtImportSettings.Attributes["onclick"] = "this.select();";
+            exportXml.Attributes["onclick"] = "this.select();";
         }
 
         void btnClearRelease_Click(object sender, EventArgs e)
@@ -177,7 +178,7 @@ namespace ReleaseManager
                 var controlPanel = new Panel();
                 controlPanel.CssClass = "controls";
 
-                var viewItems = new LiteralControl("<input type=\"button\" class=\"viewItems\" data-releaseId=\""+release.id+"\" value=\"View Items\" />");
+                var viewItems = new LiteralControl("<input type=\"button\" class=\"viewItems\" data-releaseId=\"" + release.id + "\" value=\"View Items\" />");
                 controlPanel.Controls.Add(viewItems);
 
                 //var createBundsLit = new LiteralControl("<input type=\"button\" id=\"createBundles\" class=\"createBundles\" data-releaseId=\"" + release.id + "\" value=\"Create Bundles\" />");
@@ -204,7 +205,7 @@ namespace ReleaseManager
 
 
                 ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
-                if(rmRep.releaseContainsErrors(release))
+                if (rmRep.releaseContainsErrors(release))
                 {
                     var btnViewReleaseItemsButton = new LinkButton();
                     btnViewReleaseItemsButton.Text = "Errors";
@@ -227,7 +228,7 @@ namespace ReleaseManager
 
 
                 releasePanel.CssClass = "row" + (i % 2 == 1 ? " odd" : "");
-                
+
                 releasePanel.Controls.Add(controlPanel);
                 releasePanel.Controls.Add(new LiteralControl("<div style=\"clear:both\"></div>"));
                 releaseListPanel.Controls.Add(releasePanel);
@@ -261,7 +262,7 @@ namespace ReleaseManager
 
             ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
             rmRep.finalizeRelease(release);
-            
+
             showReleases();
         }
 
@@ -289,9 +290,9 @@ namespace ReleaseManager
             LinkButton button = (LinkButton)sender;
             string release = button.CommandArgument;
 
-            
 
-            
+
+
             Console.Out.WriteLine("here2");
             //logError("test_log_1");
             updateWebDavsInRelease(release);
@@ -314,7 +315,7 @@ namespace ReleaseManager
         {
             LinkButton button = (LinkButton)sender;
             button.Enabled = false;
-            System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text.txt", "here here 888");
+            //System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text.txt", "here here 888");
         }
 
         void updateWebDavsInRelease(string releaseId)
@@ -341,14 +342,14 @@ namespace ReleaseManager
             var release = rmRep.getRelease(releaseId);
             rmRep.updateItemDetailsInReleaseData(release);
 
-            System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text1.txt", "releaseId: " + releaseId);
+            //System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text1.txt", "releaseId: " + releaseId);
         }
 
 
         // DJ
         void showBundles(string releaseId)
         {
-            System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text1.txt", "bundlebundlebundle");
+            //System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text1.txt", "bundlebundlebundle");
         }
 
 
@@ -365,7 +366,7 @@ namespace ReleaseManager
 
             ReleaseItems.Visible = true;
             ReleaseItems.CssClass = "withItems";
-            
+
             ReleaseItems.Controls.Clear();
             ReleaseItems.Controls.Add(new LiteralControl("<h4>Items in " + release.title + "</h4>"));
             //var backButton = new Button();
@@ -374,12 +375,18 @@ namespace ReleaseManager
             //backButton.ID = "backButton";
             //backButton.Click += new EventHandler(backButton_Click);
 
-           
+
 
             var backButton = new LiteralControl("<input type=\"button\" id=\"backButton\" class=\"primary\" value=\"Back to Releases\" />");
 
+            //var backButton = new Button();
+            //backButton.Text = "Back to Releases";
+            //backButton.ID = "backButton";
+            //backButton.Attributes.Add("class", "primary");
+            //backButton.Click += new System.EventHandler(backToReleases_click);
+
             ReleaseItems.Controls.Add(backButton);
-           
+
 
             var notesPanel = new Panel();
             notesPanel.ID = "notesPanel";
@@ -402,7 +409,7 @@ namespace ReleaseManager
             notesPanel.Controls.Add(notesBox);
             notesPanel.Controls.Add(new LiteralControl("<input id=\"saveNotes\" type=\"button\" value=\"Save Notes\" />"));
             notesPanel.Controls.Add(new LiteralControl("<div class=\"status\"></div>"));
-            
+
             ReleaseItems.Controls.Add(notesPanel);
 
             var releaseIdField = new HiddenField();
@@ -467,7 +474,7 @@ namespace ReleaseManager
 
             ////////////////////////////////////////////////////////
 
-            
+
             if (release.items.Count == 0)
             {
                 ReleaseItems.Controls.Add(new LiteralControl("<div class=\"first row\"><em>This release is empty.</em></div>"));
@@ -481,14 +488,11 @@ namespace ReleaseManager
                     if (rmRep.stillExists(item))
                     {
                         // ensures the item webdav path is still OK
-                        rmRep.updateItemDetails(item, release.id);
+                        //rmRep.updateItemDetails(item, release.id); // <-- Commented out July 14, 2016
 
-                        rmRep.updateItemDetailsInReleaseData(release);
+                        //rmRep.updateItemDetailsInReleaseData(release); // <-- Commented out July 14, 2016
 
                         ////rmRep.updateItemDetails_New(item, release.id);
-
-
-
 
                         var itemHtml = HttpUtility.UrlDecode(item.WEBDAV_URL).Replace("/webdav/", String.Empty);
                         if (item.possiblyConflictsWith.Count > 0 || item.definitelyConflictsWith.Count > 0)
@@ -510,15 +514,57 @@ namespace ReleaseManager
                         var cssClass = (i == 0 ? " first" : "") + ((i % 2) == 1 ? " odd" : "");
                         cssClass += item.possiblyConflictsWith.Count > 0 ? " possibleConflicts" : "";
                         cssClass += item.definitelyConflictsWith.Count > 0 ? " definiteConflicts" : "";
+
+
+                        //dynamicbutton.
+
+
+                        //string refreshItemButtonHtml = "";
+                        //if (rmRep.isItemRenamed(item, release.id))
+                        //{
+                        //    refreshItemButtonHtml = "<input type=\"submit\" id=\"foo\" class=\"refreshRenamedButton\" runat=\"server\" onserverclick=\"createBundClick\" value=\"Refresh\" />";
+                        //    //refreshItemButtonHtml = "<asp:Button runat=\"server\" OnClick=\"createBundClick\" Text=\"Refresh\" />";
+                        //    //refreshItemButtonHtml = dynamicbutton.
+                        //    cssClass += " itemRenamed";
+                        //}
+
+                        if (rmRep.isItemRenamed(item, release.id))
+                        {
+                            cssClass += " itemRenamed";
+                        }
+
                         var row = "<div class=\"row" + cssClass + "\" data-tcmuri=\"" + item.URI + "\">";
                         row += "<div class=\"item\">" + itemHtml + "</div>";
                         row += "<div class=\"controls\">";
+                        //row += refreshItemButtonHtml;
                         row += viewHtml;
                         row += "<a class=\"remove\" href=\"removeFromRelease.aspx?release=" + HttpUtility.UrlEncode(releaseId) + "&uri=" + HttpUtility.UrlEncode(item.URI) + "\">Remove</a>";
                         row += "</div>";
                         row += "<div style=\"clear:both\"></div>";
                         row += "</div>";
-                        ReleaseItems.Controls.Add(new LiteralControl(row));
+
+                        //var itemControls = new LiteralControl(row);
+                        //itemControls.Add(dynamicbutton);
+
+                        //ReleaseItems.Controls.Add(new LiteralControl(row));
+
+                        var itemControls = new LiteralControl(row);
+                        
+                        ReleaseItems.Controls.Add(itemControls);
+
+                        //ReleaseItems.Controls.Remove()
+
+                        if (rmRep.isItemRenamed(item, release.id))
+                        {
+                            Button renameRefreshButton = new Button();
+                            renameRefreshButton.Attributes.Add("class", "renameRefreshButton");
+                            renameRefreshButton.Attributes.Add("data-tcmuri", item.URI);
+                            renameRefreshButton.Attributes.Add("lineId", itemControls.UniqueID);
+                            renameRefreshButton.Click += new System.EventHandler(renameRefreshClick);
+                            renameRefreshButton.Text = "Refresh";
+                            ReleaseItems.Controls.Add(renameRefreshButton);
+                        }
+
                         i++;
                     }
                     else
@@ -709,7 +755,7 @@ namespace ReleaseManager
                     // If the folder string starts with \, then assume it's entered as a path
                     // Check if the first part of the path is a publication - if it's not, assume we are working with a path suffix.
                     var bundleFolderAsWebdav = convertPathToWebDav(bundleFolderInput);
-                    System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text.txt", bundleFolderAsWebdav);
+                    //System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text.txt", bundleFolderAsWebdav);
                     bundleFolderTcm = client.GetTcmUri(bundleFolderAsWebdav, null, null);
                 }
                 else if (!bundleFolderInput.StartsWith("tcm:"))
@@ -739,10 +785,67 @@ namespace ReleaseManager
             return bundleFolderPath;
         }
 
+        protected void testClick(object sender, EventArgs e)
+        {
+            string releaseId = Request["showItemsInRelease"];
+            ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
+            Release release = rmRep.getRelease(releaseId);
+
+            // TODO: perform validations of input bundleFolder and output descriptive error message under bundles panel here.
+
+            string bundleFolderPath = validateFolderInput("yyy", rmRep);
+            if (string.IsNullOrEmpty(bundleFolderPath))
+            {
+                // Path could not be successfully retrieved, so cancel executing the rest of this method.
+                return;
+            }
+        }
+
+        protected void renameRefreshClick(object sender, EventArgs e)
+        {
+            //TODO: try to remove error label immediately whenever this button is clicked, if it exists
+
+            // Call showItemsInRelease() to ensure clicking the Create Bundles button does NOT return us to the main Release Manager dialog
+            //string releaseId = Request["showItemsInRelease"];
+            //showItemsInRelease(releaseId);
+
+            Button btn = (Button)sender;
+
+            Label lbl = new Label();
+            //lbl.Text = "data-tcmuri: " + btn.Attributes["data-tcmuri"];
+            //lbl.Text = btn.FindControl(btn.Attributes["lineID"]).ToString();
+            //lbl.Text = ((LiteralControl)ReleaseItems.FindControl(btn.Attributes["lineID"])).Text;
+            ((LiteralControl)ReleaseItems.FindControl(btn.Attributes["lineID"])).Text = ((LiteralControl)ReleaseItems.FindControl(btn.Attributes["lineID"])).Text.Replace("itemRenamed", "");
+            //lbl.Text = "lineID: " + btn.Attributes["lineID"];
+            lbl.ID = "createBundlesErrorMessage";
+            lbl.ForeColor = System.Drawing.Color.Red;
+            CreateBundlesPanel.Controls.Add(lbl);
+
+            // Get the line preceding the Refresh button:
+            ///btn.FindControl(btn.Attributes["lineID"]).ToString();
+            ///
+            //ReleaseItems.Controls.Find
+            
+
+            //Page.FindControl(btn.Attributes["lineID"]).;
+
+            //((LiteralControl)Page.FindControl(btn.Attributes["lineID"])).Text;
+
+            btn.Parent.Controls.Remove(btn);
+
+            
+        }
+
+        protected void backToReleases_click(object sender, EventArgs e)
+        {
+            loadReleases();
+        }
+
         protected void createBundClick(object sender, EventArgs e)
         {
             //TODO: try to remove error label immediately whenever this button is clicked, if it exists
 
+            // TODO: Try to Remove this code if you remove !isPostBack logic in Page_Load method near the top
             // Call showItemsInRelease() to ensure clicking the Create Bundles button does NOT return us to the main Release Manager dialog
             string releaseId = Request["showItemsInRelease"];
             showItemsInRelease(releaseId);
@@ -758,7 +861,7 @@ namespace ReleaseManager
             // TODO: perform validations of input bundleFolder and output descriptive error message under bundles panel here.
 
             string bundleFolderPath = validateFolderInput(bundleFolderInput, rmRep);
-            if(string.IsNullOrEmpty(bundleFolderPath))
+            if (string.IsNullOrEmpty(bundleFolderPath))
             {
                 // Path could not be successfully retrieved, so cancel executing the rest of this method.
                 return;
@@ -806,8 +909,6 @@ namespace ReleaseManager
             //    rmRep.createBundle(currBundleFolderAsWebdav, bundlePrefixInput);
             //}
         }
-
-
 
 
 

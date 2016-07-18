@@ -17,24 +17,19 @@
       <deletedBy>
       </deletedBy>
     </release>
+    <release id="3f4ca561-c7ea-4c09-a11b-73fe3618663f" dateAdded="2016-07-17T18:02:45.5604120Z" dateFinalized="2016-07-17T18:03:11.1038730Z">
+      <note>
+      </note>
+      <title>new test release</title>
+      <addedBy>WIN-DFMAJQHT95L\Administrator</addedBy>
+      <deletedBy>WIN-DFMAJQHT95L\Administrator</deletedBy>
+    </release>
   </releases>
   <items>
     <!--<item uri="tcm:0-21-1" release="testrelease1"><webdav_url>/webdav/ctpurl</webdav_url><title></title><version_start></version_start><version_end></version_end></item>-->
     <item uri="tcm:1-6377" release="96a3833b-b4ed-461f-ad7b-f8feba2c202b" dateAdded="2014-08-25T21:23:44.1494140Z" id="a3c4bb33-00bc-4027-9ba9-bc6e76ac2dd5">
       <webdav_url>/webdav/200%20Global%20Content%20(English)/Building%20Blocks/Content/Event%20Listing.xml</webdav_url>
       <title>Event Listing</title>
-      <is_shared>False</is_shared>
-      <subtype>0</subtype>
-    </item>
-    <item uri="tcm:1007-6603" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-04-23T02:29:44.9190609Z" id="1ee931ea-ca96-4f5c-a75f-8d07610718ba">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20c%201%20(renamed9).xml</webdav_url>
-      <title>test c 1</title>
-      <is_shared>False</is_shared>
-      <subtype>0</subtype>
-    </item>
-    <item uri="tcm:5-1087-2" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-06-08T23:54:12.9853396Z" id="76e8fe34-6b1c-4c35-af67-8401c9ad53bb">
-      <webdav_url>/webdav/000%20Empty%20Parent/Building%20Blocks/Content/Folder%201</webdav_url>
-      <title>Folder 1</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>
@@ -47,6 +42,12 @@
     <item uri="tcm:1007-5210-2" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-06-09T01:31:50.0799737Z" id="a1438b7a-d6ef-4507-ab8e-4e69753e4e35">
       <webdav_url>/webdav/030C%20Content/Building%20Blocks/New%20Folder%20%252F</webdav_url>
       <title>New Folder %2F</title>
+      <is_shared>False</is_shared>
+      <subtype>0</subtype>
+    </item>
+    <item uri="tcm:1007-6603" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-07-13T17:18:11.1409375Z" id="c1d06bfc-16ba-4e70-929e-3e5a6800acb0">
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20c%201%20(renamed12).xml</webdav_url>
+      <title>test c 1 (renamed11)</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>
