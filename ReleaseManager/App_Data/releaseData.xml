@@ -27,27 +27,33 @@
   </releases>
   <items>
     <!--<item uri="tcm:0-21-1" release="testrelease1"><webdav_url>/webdav/ctpurl</webdav_url><title></title><version_start></version_start><version_end></version_end></item>-->
-    <item uri="tcm:1-6377" release="96a3833b-b4ed-461f-ad7b-f8feba2c202b" dateAdded="2014-08-25T21:23:44.1494140Z" id="a3c4bb33-00bc-4027-9ba9-bc6e76ac2dd5">
-      <webdav_url>/webdav/200%20Global%20Content%20(English)/Building%20Blocks/Content/Event%20Listing.xml</webdav_url>
-      <title>Event Listing</title>
-      <is_shared>False</is_shared>
-      <subtype>0</subtype>
-    </item>
-    <item uri="tcm:5-5209-2" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-06-09T01:13:07.1008214Z" id="914371f7-f944-4c5d-9447-95cb42cf59cc">
-      <webdav_url>/webdav/000%20Empty%20Parent/Building%20Blocks/New%20Folder%20%2F</webdav_url>
-      <title>New Folder /</title>
-      <is_shared>False</is_shared>
-      <subtype>0</subtype>
-    </item>
     <item uri="tcm:1007-5210-2" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-06-09T01:31:50.0799737Z" id="a1438b7a-d6ef-4507-ab8e-4e69753e4e35">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/New%20Folder%20%252F</webdav_url>
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/New%20Folder%20%252F</webdav_url>
       <title>New Folder %2F</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>
     <item uri="tcm:1007-6603" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-07-13T17:18:11.1409375Z" id="c1d06bfc-16ba-4e70-929e-3e5a6800acb0">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20c%201%20(renamed12).xml</webdav_url>
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20c%201%20(renamed19).xml</webdav_url>
       <title>test c 1 (renamed11)</title>
+      <is_shared>False</is_shared>
+      <subtype>0</subtype>
+    </item>
+    <item uri="tcm:1007-10555" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-07-18T17:36:55.0385251Z" id="1e28af62-a7e0-488a-81a7-1871f67e0814">
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%20of%20test%20c%201%20(renamed21).xml</webdav_url>
+      <title>Copy of test c 1 (renamed19)</title>
+      <is_shared>False</is_shared>
+      <subtype>0</subtype>
+    </item>
+    <item uri="tcm:1007-10556" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-07-18T17:36:55.0865278Z" id="21dbc18e-90e3-4dc2-8068-fb8f1694da5b">
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%202%20of%20test%20c%201%20(renamed21).xml</webdav_url>
+      <title>Copy 2 of test c 1 (renamed19)</title>
+      <is_shared>False</is_shared>
+      <subtype>0</subtype>
+    </item>
+    <item uri="tcm:1007-10557" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-07-18T17:36:55.1365307Z" id="2f4e4766-5cc5-475b-b6de-0b82ba67bac5">
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%203%20of%20test%20c%201%20(renamed19).xml</webdav_url>
+      <title>Copy 3 of test c 1 (renamed19)</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>

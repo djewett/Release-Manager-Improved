@@ -58,13 +58,13 @@ namespace ReleaseManager {
         protected global::System.Web.UI.HtmlControls.HtmlInputText bundlePrefix;
         
         /// <summary>
-        /// newButton1 control.
+        /// createBundleButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button newButton1;
+        protected global::System.Web.UI.WebControls.Button createBundleButton;
         
         /// <summary>
         /// PanelReleases control.

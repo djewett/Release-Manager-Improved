@@ -432,6 +432,69 @@ a,a:visited
     background-repeat: no-repeat;
     text-decoration: none;
 }
+
 /*#createBundlesErrorMessage{
     color: red;
 }*/
+
+#ReleaseItems .itemRenamedWarningLabel{
+    position: relative;
+    top: -20px;
+    margin-left: 12px;
+}
+
+#ReleaseItems .renameRefreshButton {
+    padding-top: 0px;
+    position: relative;
+    top: -20px;
+    left: 5px;
+    margin-bottom: -40px;
+    height: 16px;
+}
+
+#CreateBundlesPanel{
+    background: #cccccc;
+    padding: 6px;
+    height: 65px;
+    width: 100%;
+    min-width: 520px;
+    padding-top: 12px;
+    margin-bottom: 12px;
+}
+
+#bundleFolderLabel, #bundleFolder, #bundlePrefixLabel, #bundlePrefix{
+    float: left;
+}
+
+#bundleFolderLabel{
+    padding-top: 5px;
+    margin-right: 4px;
+}
+
+#bundlePrefixLabel{
+    padding-top: 4px;
+    margin-top: 7px;
+    margin-right: 4px;
+}
+
+#bundlePrefix {
+    margin-left: 2px;
+    margin-top: 6px;
+}
+
+#bundlePrefixLabel{
+    clear: both;
+}
+
+#createBundleButton{
+    position: relative;
+    left: 6px;
+    top: 31px;
+}
+
+#createBundlesErrorMessage{
+    position: relative;
+    left: -132px;
+}
+
+

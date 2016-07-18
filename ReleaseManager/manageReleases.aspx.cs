@@ -17,6 +17,8 @@ namespace ReleaseManager
         CheckBox showAll = new CheckBox();
         bool showDeletedReleases = false;
 
+        Label createBundlesErrorMessageLabel = new Label();
+                
         // DJ
         //private Button bundlesButton = new Button();
         private LiteralControl bundlesLiteralControl;
@@ -29,6 +31,14 @@ namespace ReleaseManager
             zzzButton.Text = "zzz";
             zzzButton.CssClass = "zzz";
             zzzButton.Click += new EventHandler(bundlesButton_Click);
+
+
+
+            createBundlesErrorMessageLabel.Text = "Invalid Input(s)";
+            createBundlesErrorMessageLabel.ID = "createBundlesErrorMessage";
+            createBundlesErrorMessageLabel.ForeColor = System.Drawing.Color.Red;
+
+
 
             if (Request["showItemsInRelease"] != null)// && !IsPostBack)
             {
@@ -494,7 +504,8 @@ namespace ReleaseManager
 
                         ////rmRep.updateItemDetails_New(item, release.id);
 
-                        var itemHtml = HttpUtility.UrlDecode(item.WEBDAV_URL).Replace("/webdav/", String.Empty);
+                        string itemFullPath = HttpUtility.UrlDecode(item.WEBDAV_URL).Replace("/webdav/", String.Empty);
+                        var itemHtml = itemFullPath;
                         if (item.possiblyConflictsWith.Count > 0 || item.definitelyConflictsWith.Count > 0)
                         {
                             itemHtml += "<br /><span class=\"info\">Also added to ";
@@ -556,12 +567,27 @@ namespace ReleaseManager
 
                         if (rmRep.isItemRenamed(item, release.id))
                         {
+                            //Label itemRenamedWarningLabel = new Label();
+                            //itemRenamedWarningLabel.Text = "Item has been moved or renamed.";
+                            //itemRenamedWarningLabel.ForeColor = System.Drawing.Color.Gray;
+                            //itemRenamedWarningLabel.Attributes.Add("class", "itemRenamedWarningLabel");
+
+                            //string itemRenamedWarningLabelHtml = "<span class=\"itemRenamedWarningLabel\" style=\"color:Gray;\">The item has been moved or renamed ";
+                            //itemRenamedWarningLabelHtml = itemRenamedWarningLabelHtml.Substring(0, itemRenamedWarningLabelHtml.Length - 1);
+                            //itemRenamedWarningLabelHtml += "</span>";
+
+                            //ReleaseItems.Controls.Add(itemRenamedWarningLabel);
+                            //ReleaseItems.Controls.Add(new LiteralControl(itemRenamedWarningLabelHtml));
+
                             Button renameRefreshButton = new Button();
                             renameRefreshButton.Attributes.Add("class", "renameRefreshButton");
                             renameRefreshButton.Attributes.Add("data-tcmuri", item.URI);
                             renameRefreshButton.Attributes.Add("lineId", itemControls.UniqueID);
+                            renameRefreshButton.Attributes.Add("itemFullPath", itemFullPath);
+                            //renameRefreshButton.Attributes.Add("itemRenamedWarningId", itemRenamedWarningLabel.UniqueID);
                             renameRefreshButton.Click += new System.EventHandler(renameRefreshClick);
                             renameRefreshButton.Text = "Refresh";
+
                             ReleaseItems.Controls.Add(renameRefreshButton);
                         }
 
@@ -743,6 +769,8 @@ namespace ReleaseManager
 
             try
             {
+                CreateBundlesPanel.Controls.Remove(createBundlesErrorMessageLabel);
+
                 // Accept a path, webdav or tcm (with or with the "tcm:" prefix)
                 string bundleFolderTcm = "";
                 //TODO: Add a case for when the bundleFolder starts with "/webdav/"
@@ -775,11 +803,7 @@ namespace ReleaseManager
             }
             catch (Exception)
             {
-                Label lbl = new Label();
-                lbl.Text = "Invalid Folder: XXX";
-                lbl.ID = "createBundlesErrorMessage";
-                lbl.ForeColor = System.Drawing.Color.Red;
-                CreateBundlesPanel.Controls.Add(lbl);
+                CreateBundlesPanel.Controls.Add(createBundlesErrorMessageLabel);
             }
 
             return bundleFolderPath;
@@ -812,28 +836,25 @@ namespace ReleaseManager
             Button btn = (Button)sender;
 
             Label lbl = new Label();
-            //lbl.Text = "data-tcmuri: " + btn.Attributes["data-tcmuri"];
-            //lbl.Text = btn.FindControl(btn.Attributes["lineID"]).ToString();
-            //lbl.Text = ((LiteralControl)ReleaseItems.FindControl(btn.Attributes["lineID"])).Text;
             ((LiteralControl)ReleaseItems.FindControl(btn.Attributes["lineID"])).Text = ((LiteralControl)ReleaseItems.FindControl(btn.Attributes["lineID"])).Text.Replace("itemRenamed", "");
-            //lbl.Text = "lineID: " + btn.Attributes["lineID"];
             lbl.ID = "createBundlesErrorMessage";
             lbl.ForeColor = System.Drawing.Color.Red;
             CreateBundlesPanel.Controls.Add(lbl);
 
-            // Get the line preceding the Refresh button:
-            ///btn.FindControl(btn.Attributes["lineID"]).ToString();
-            ///
-            //ReleaseItems.Controls.Find
-            
+            string itemTcmId = btn.Attributes["data-tcmuri"];
 
-            //Page.FindControl(btn.Attributes["lineID"]).;
-
-            //((LiteralControl)Page.FindControl(btn.Attributes["lineID"])).Text;
-
+            // Remove item moved/renamed warning label and button.
+            //btn.Parent.Controls.Remove(ReleaseItems.FindControl(btn.Attributes["itemRenamedWarningId"]));
             btn.Parent.Controls.Remove(btn);
 
-            
+            ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
+            string releaseId = Request["showItemsInRelease"];
+            var release = rmRep.getRelease(releaseId);
+            string itemNewFullPath = rmRep.updateItemInReleaseData(release, itemTcmId);
+
+            ((LiteralControl)ReleaseItems.FindControl(btn.Attributes["lineID"])).Text = ((LiteralControl)ReleaseItems.FindControl(btn.Attributes["lineID"])).Text.Replace(btn.Attributes["itemFullPath"], itemNewFullPath);
+
+            //showItemsInRelease(releaseId);
         }
 
         protected void backToReleases_click(object sender, EventArgs e)
@@ -843,11 +864,11 @@ namespace ReleaseManager
 
         protected void createBundClick(object sender, EventArgs e)
         {
-            //TODO: try to remove error label immediately whenever this button is clicked, if it exists
-
             // TODO: Try to Remove this code if you remove !isPostBack logic in Page_Load method near the top
             // Call showItemsInRelease() to ensure clicking the Create Bundles button does NOT return us to the main Release Manager dialog
             string releaseId = Request["showItemsInRelease"];
+
+            // TODO: is this call needed here???:
             showItemsInRelease(releaseId);
 
             // Test you can retrieve values from bundle folder and prefix text boxes:

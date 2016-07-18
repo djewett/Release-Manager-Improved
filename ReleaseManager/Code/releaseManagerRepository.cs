@@ -394,6 +394,27 @@ namespace ReleaseManager
         }
 
 
+        // dj - July 2016
+        public string updateItemInReleaseData(Release release, string itemTcmId)
+        {
+            string newItemFullPath = "";
+
+            SessionAwareCoreServiceClient tridionClient = getCoreServiceClient();
+            RepositoryLocalObjectData tridionItem = (RepositoryLocalObjectData)tridionClient.Read(itemTcmId, new ReadOptions());
+
+            if (null != tridionItem)
+            {
+                XmlNode webDavNode = db.SelectSingleNode("//items/item[@uri='" + itemTcmId + "'][@release='" + release.id + "']/webdav_url");
+                webDavNode.InnerText = tridionItem.LocationInfo.WebDavUrl;
+                db.Save(getPathReleaseManagerDb());
+
+                newItemFullPath = HttpUtility.UrlDecode(webDavNode.InnerText).Replace("/webdav/", String.Empty);
+            }
+
+            return newItemFullPath;
+        }
+
+
         /// <summary>
         /// stillExists
         /// Added by j.winter@contentbloom.com - checks that the item still exists in the CMS

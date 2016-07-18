@@ -12,11 +12,11 @@
     <div>
 
         <asp:Panel ID="CreateBundlesPanel" runat="server">
-            <label>Bundle Folder:</label>
+            <label id="bundleFolderLabel">Bundle Folder:</label>
             <input type="text" id="bundleFolder" runat="server" />
-            <label>Bundle Prefix:</label>
+            <label id="bundlePrefixLabel">Bundle Prefix:</label>
             <input type="text" id="bundlePrefix" runat="server" />
-            <asp:Button runat="server" id="newButton1" OnClick="createBundClick" Text="Create Bundles" />
+            <asp:Button runat="server" id="createBundleButton" OnClick="createBundClick" Text="Create Bundles" />
         </asp:Panel>
         
         <asp:Panel ID="PanelReleases" runat="server">
