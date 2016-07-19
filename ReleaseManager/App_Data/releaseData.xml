@@ -34,28 +34,28 @@
       <subtype>0</subtype>
     </item>
     <item uri="tcm:1007-6603" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-07-13T17:18:11.1409375Z" id="c1d06bfc-16ba-4e70-929e-3e5a6800acb0">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20c%201%20(renamed19).xml</webdav_url>
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20c%201%20(renamed29).xml</webdav_url>
       <title>test c 1 (renamed11)</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>
     <item uri="tcm:1007-10555" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-07-18T17:36:55.0385251Z" id="1e28af62-a7e0-488a-81a7-1871f67e0814">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%20of%20test%20c%201%20(renamed21).xml</webdav_url>
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%20of%20test%20c%201%20(renamed30).xml</webdav_url>
       <title>Copy of test c 1 (renamed19)</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>
     <item uri="tcm:1007-10556" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-07-18T17:36:55.0865278Z" id="21dbc18e-90e3-4dc2-8068-fb8f1694da5b">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%202%20of%20test%20c%201%20(renamed21).xml</webdav_url>
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%202%20of%20test%20c%201%20(renamed30.xml</webdav_url>
       <title>Copy 2 of test c 1 (renamed19)</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>
     <item uri="tcm:1007-10557" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-07-18T17:36:55.1365307Z" id="2f4e4766-5cc5-475b-b6de-0b82ba67bac5">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%203%20of%20test%20c%201%20(renamed19).xml</webdav_url>
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%203%20of%20test%20c%201%20(renamed30).xml</webdav_url>
       <title>Copy 3 of test c 1 (renamed19)</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>
   </items>
-</db>
+</db>>

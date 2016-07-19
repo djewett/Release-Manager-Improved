@@ -11,6 +11,7 @@ using Tridion.ContentManager;
 using Tridion.ContentManager.CoreService.Client;
 using ReleaseManager;
 using System.ServiceModel;
+using System.Threading;
 
 
 namespace ReleaseManager
@@ -406,7 +407,18 @@ namespace ReleaseManager
             {
                 XmlNode webDavNode = db.SelectSingleNode("//items/item[@uri='" + itemTcmId + "'][@release='" + release.id + "']/webdav_url");
                 webDavNode.InnerText = tridionItem.LocationInfo.WebDavUrl;
-                db.Save(getPathReleaseManagerDb());
+                string dbPath = getPathReleaseManagerDb();
+                //db.Save(dbPath);
+
+                // Try to ensure that we wait until document is fully saved, to avoid conflicts with future udpates.
+                //while (IsFileLocked(new FileInfo(dbPath)))
+                //{
+                //Thread.Sleep(TimeSpan.FromSeconds(10));
+
+                using (var file = new FileStream(dbPath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+                {
+                    db.Save(file);
+                }
 
                 newItemFullPath = HttpUtility.UrlDecode(webDavNode.InnerText).Replace("/webdav/", String.Empty);
             }

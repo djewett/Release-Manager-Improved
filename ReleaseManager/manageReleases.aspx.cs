@@ -827,8 +827,6 @@ namespace ReleaseManager
 
         protected void renameRefreshClick(object sender, EventArgs e)
         {
-            //TODO: try to remove error label immediately whenever this button is clicked, if it exists
-
             // Call showItemsInRelease() to ensure clicking the Create Bundles button does NOT return us to the main Release Manager dialog
             //string releaseId = Request["showItemsInRelease"];
             //showItemsInRelease(releaseId);
@@ -845,6 +843,7 @@ namespace ReleaseManager
 
             // Remove item moved/renamed warning label and button.
             //btn.Parent.Controls.Remove(ReleaseItems.FindControl(btn.Attributes["itemRenamedWarningId"]));
+            btn.Click -= renameRefreshClick;
             btn.Parent.Controls.Remove(btn);
 
             ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
