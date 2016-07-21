@@ -21,46 +21,53 @@ namespace ReleaseManager
                 
         // DJ
         //private Button bundlesButton = new Button();
-        private LiteralControl bundlesLiteralControl;
-        private Button zzzButton;
+        //private LiteralControl bundlesLiteralControl;
+        //private Button zzzButton;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            zzzButton = new Button();
+            //zzzButton = new Button();
             ////var yyyButton = new Button();
-            zzzButton.Text = "zzz";
-            zzzButton.CssClass = "zzz";
-            zzzButton.Click += new EventHandler(bundlesButton_Click);
+            //zzzButton.Text = "zzz";
+            //zzzButton.CssClass = "zzz";
+            //zzzButton.Click += new EventHandler(bundlesButton_Click);
 
-
-
-            createBundlesErrorMessageLabel.Text = "Invalid Input(s)";
-            createBundlesErrorMessageLabel.ID = "createBundlesErrorMessage";
-            createBundlesErrorMessageLabel.ForeColor = System.Drawing.Color.Red;
-
-
-
-            if (Request["showItemsInRelease"] != null)// && !IsPostBack)
+            try
             {
-                showItemsInRelease(Request["showItemsInRelease"]); //, yyyButton);
+
+                createBundlesErrorMessageLabel.Text = "Invalid Input(s)";
+                createBundlesErrorMessageLabel.ID = "createBundlesErrorMessage";
+                createBundlesErrorMessageLabel.ForeColor = System.Drawing.Color.Red;
+
+
+
+                if (Request["showItemsInRelease"] != null)// && !IsPostBack)
+                {
+                    showItemsInRelease(Request["showItemsInRelease"]); //, yyyButton);
+                }
+                else
+                {
+                    showDeletedReleases = true; // (Session.Contents["showDeletedReleases"] != null) ? (bool)Session.Contents["showDeletedReleases"] : false;
+                    showAll.ID = "showAll";
+                    showAll.Text = "Include finalized releases";
+                    showAll.AutoPostBack = true;
+                    showAll.CheckedChanged += new EventHandler(showAll_CheckedChanged);
+
+                    //TODO: fix this
+                    showAll.Visible = false;
+
+                    showReleases();
+                    ReleaseItems.CssClass = "";
+                    txtExportSettings.Attributes["onclick"] = "this.select();";
+                    txtImportSettings.Attributes["onclick"] = "this.select();";
+                    exportXml.Attributes["onclick"] = "this.select();";
+                    //loadReleases();
+                }
+
             }
-            else
+            catch(Exception)
             {
-                showDeletedReleases = true; // (Session.Contents["showDeletedReleases"] != null) ? (bool)Session.Contents["showDeletedReleases"] : false;
-                showAll.ID = "showAll";
-                showAll.Text = "Include finalized releases";
-                showAll.AutoPostBack = true;
-                showAll.CheckedChanged += new EventHandler(showAll_CheckedChanged);
 
-                //TODO: fix this
-                showAll.Visible = false;
-
-                showReleases();
-                ReleaseItems.CssClass = "";
-                txtExportSettings.Attributes["onclick"] = "this.select();";
-                txtImportSettings.Attributes["onclick"] = "this.select();";
-                exportXml.Attributes["onclick"] = "this.select();";
-                //loadReleases();
             }
         }
 
@@ -99,7 +106,7 @@ namespace ReleaseManager
             LinkButton btn = (LinkButton)sender;
             string releaseId = btn.CommandArgument;
 
-            updateWebDavsInReleaseData(releaseId);
+            //updateWebDavsInReleaseData(releaseId);
 
             ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
 
@@ -149,7 +156,7 @@ namespace ReleaseManager
         private void showReleases()
         {
             ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
-            //showReleases(rmRep.getAllReleases());
+            ////showReleases(rmRep.getAllReleases());
             var releases = rmRep.getReleases();
             rmRep.moveFinalizedReleasesToEnd(ref releases);
             showReleases(releases);
@@ -580,12 +587,18 @@ namespace ReleaseManager
                             //ReleaseItems.Controls.Add(new LiteralControl(itemRenamedWarningLabelHtml));
 
                             Button renameRefreshButton = new Button();
+                            renameRefreshButton.CommandArgument = releaseId;
                             renameRefreshButton.Attributes.Add("class", "renameRefreshButton");
                             renameRefreshButton.Attributes.Add("data-tcmuri", item.URI);
                             renameRefreshButton.Attributes.Add("lineId", itemControls.UniqueID);
                             renameRefreshButton.Attributes.Add("itemFullPath", itemFullPath);
-                            //renameRefreshButton.Attributes.Add("itemRenamedWarningId", itemRenamedWarningLabel.UniqueID);
-                            renameRefreshButton.Click += new System.EventHandler(renameRefreshClick);
+                            //renameRefreshButton.CommandArgument = item.URI;
+
+                            // Be sure to give the button a unique ID (which helps with handling the correct event when the button is clicked).
+                            renameRefreshButton.ID = "renameRefreshButton_" + item.URI.Replace(":", "_");
+
+                            // renameRefreshButton.Attributes.Add("itemRenamedWarningId", itemRenamedWarningLabel.UniqueID);
+                            renameRefreshButton.Click += new System.EventHandler(renameRefresh_Click);
                             renameRefreshButton.Text = "Refresh";
 
                             ReleaseItems.Controls.Add(renameRefreshButton);
@@ -638,8 +651,8 @@ namespace ReleaseManager
         //    showReleases();
         //}
 
-        void bundlesButton_Click(object sender, EventArgs e)
-        {
+       // void bundlesButton_Click(object sender, EventArgs e)
+        //{
             ////hideAllPanels();
             ////showReleases();
 
@@ -652,7 +665,7 @@ namespace ReleaseManager
             //bundle.Title = "DJsNewBund";
             //getCoreServiceClient().Create(bundle, new ReadOptions());
 
-        }
+        //}
 
         private static int CompareReleaseItems(ReleaseItem item1, ReleaseItem item2)
         {
@@ -825,7 +838,7 @@ namespace ReleaseManager
             }
         }
 
-        protected void renameRefreshClick(object sender, EventArgs e)
+        protected void renameRefresh_Click(object sender, EventArgs e)
         {
             // Call showItemsInRelease() to ensure clicking the Create Bundles button does NOT return us to the main Release Manager dialog
             //string releaseId = Request["showItemsInRelease"];
@@ -833,25 +846,36 @@ namespace ReleaseManager
 
             Button btn = (Button)sender;
 
-            Label lbl = new Label();
-            ((LiteralControl)ReleaseItems.FindControl(btn.Attributes["lineID"])).Text = ((LiteralControl)ReleaseItems.FindControl(btn.Attributes["lineID"])).Text.Replace("itemRenamed", "");
-            lbl.ID = "createBundlesErrorMessage";
-            lbl.ForeColor = System.Drawing.Color.Red;
-            CreateBundlesPanel.Controls.Add(lbl);
+            var lineControl = (LiteralControl)ReleaseItems.FindControl(btn.Attributes["lineID"]);
+
+            //Label lbl = new Label();
+            lineControl.Text = lineControl.Text.Replace("itemRenamed", "");
+            //lbl.ID = "createBundlesErrorMessage";
+            //lbl.ForeColor = System.Drawing.Color.Red;
+            //CreateBundlesPanel.Controls.Add(lbl);
 
             string itemTcmId = btn.Attributes["data-tcmuri"];
 
+            ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
+            //string releaseId = Request["showItemsInRelease"];
+            var releaseId = btn.CommandArgument;
+            var release = rmRep.getRelease(releaseId);
+            
+            var itemNewFullPath = rmRep.updateItemInReleaseData(release, itemTcmId);
+
+            var itemOldFulltPath = btn.Attributes["itemFullPath"];
+
+            lineControl.Text = lineControl.Text.Replace(itemOldFulltPath, itemNewFullPath);
+
             // Remove item moved/renamed warning label and button.
             //btn.Parent.Controls.Remove(ReleaseItems.FindControl(btn.Attributes["itemRenamedWarningId"]));
-            btn.Click -= renameRefreshClick;
-            btn.Parent.Controls.Remove(btn);
 
-            ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
-            string releaseId = Request["showItemsInRelease"];
-            var release = rmRep.getRelease(releaseId);
-            string itemNewFullPath = rmRep.updateItemInReleaseData(release, itemTcmId);
+            //btn.Click -= new System.EventHandler(renameRefresh_Click);
+            //btn.Parent.Controls.Remove(btn);
+            //btn.Dispose();
+            btn.Visible = false;
 
-            ((LiteralControl)ReleaseItems.FindControl(btn.Attributes["lineID"])).Text = ((LiteralControl)ReleaseItems.FindControl(btn.Attributes["lineID"])).Text.Replace(btn.Attributes["itemFullPath"], itemNewFullPath);
+            
 
             //showItemsInRelease(releaseId);
         }

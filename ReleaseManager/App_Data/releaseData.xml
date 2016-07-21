@@ -1,61 +1,96 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <db>
   <releases>
-    <release id="96a3833b-b4ed-461f-ad7b-f8feba2c202b" dateAdded="2014-08-25T20:54:48.0830078Z" dateFinalized="">
+    <release id="50e21524-b7f6-414a-8452-54cf6ea5782a" dateAdded="2016-07-19T16:41:11.7667423Z" dateFinalized="">
       <note>
       </note>
-      <title>John's Release</title>
-      <addedBy>TRAIN1\Administrator</addedBy>
-      <deletedBy>
-      </deletedBy>
-    </release>
-    <release id="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2015-06-30T15:17:43.9085563Z" dateFinalized="">
-      <note>
-      </note>
-      <title>DJ new release</title>
+      <title>DJ New Release - 19July2016</title>
       <addedBy>WIN-DFMAJQHT95L\Administrator</addedBy>
       <deletedBy>
       </deletedBy>
     </release>
-    <release id="3f4ca561-c7ea-4c09-a11b-73fe3618663f" dateAdded="2016-07-17T18:02:45.5604120Z" dateFinalized="2016-07-17T18:03:11.1038730Z">
+    <release id="952dcffa-86a1-4048-922b-50b932cc7b51" dateAdded="2016-07-19T16:41:17.1501829Z" dateFinalized="">
       <note>
       </note>
-      <title>new test release</title>
+      <title>DJ New Release - 19July2016</title>
       <addedBy>WIN-DFMAJQHT95L\Administrator</addedBy>
-      <deletedBy>WIN-DFMAJQHT95L\Administrator</deletedBy>
+      <deletedBy>
+      </deletedBy>
+    </release>
+    <release id="91592b98-750b-4694-8620-e99be6844ae6" dateAdded="2016-07-19T16:53:49.1674591Z" dateFinalized="">
+      <note>
+      </note>
+      <title>DJ Release</title>
+      <addedBy>WIN-DFMAJQHT95L\Administrator</addedBy>
+      <deletedBy>
+      </deletedBy>
+    </release>
+    <release id="68b6655b-576c-441a-b1c1-be02f6cf5af3" dateAdded="2016-07-19T16:55:29.3581562Z" dateFinalized="">
+      <note>
+      </note>
+      <title>DJ Release</title>
+      <addedBy>WIN-DFMAJQHT95L\Administrator</addedBy>
+      <deletedBy>
+      </deletedBy>
+    </release>
+    <release id="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-19T17:01:59.7044374Z" dateFinalized="">
+      <note>
+      </note>
+      <title>DJ 2</title>
+      <addedBy>WIN-DFMAJQHT95L\Administrator</addedBy>
+      <deletedBy>
+      </deletedBy>
     </release>
   </releases>
   <items>
     <!--<item uri="tcm:0-21-1" release="testrelease1"><webdav_url>/webdav/ctpurl</webdav_url><title></title><version_start></version_start><version_end></version_end></item>-->
-    <item uri="tcm:1007-5210-2" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-06-09T01:31:50.0799737Z" id="a1438b7a-d6ef-4507-ab8e-4e69753e4e35">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/New%20Folder%20%252F</webdav_url>
-      <title>New Folder %2F</title>
+    <item uri="tcm:1007-10557" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-19T17:03:09.8679577Z" id="7a2b4099-7401-46c5-be9a-49565114097e">
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20comp%202%20(renamed2).xml</webdav_url>
+      <title>test comp 2 (renamed2)</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>
-    <item uri="tcm:1007-6603" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-07-13T17:18:11.1409375Z" id="c1d06bfc-16ba-4e70-929e-3e5a6800acb0">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20c%201%20(renamed29).xml</webdav_url>
-      <title>test c 1 (renamed11)</title>
+    <item uri="tcm:1007-6603" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-19T17:56:34.5106150Z" id="5274f67a-e8ea-4fb8-a16e-6618bdf73e22">
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20comp%201%20(renamed2).xml</webdav_url>
+      <title>test comp 1 (renamed2)</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>
-    <item uri="tcm:1007-10555" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-07-18T17:36:55.0385251Z" id="1e28af62-a7e0-488a-81a7-1871f67e0814">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%20of%20test%20c%201%20(renamed30).xml</webdav_url>
-      <title>Copy of test c 1 (renamed19)</title>
+    <item uri="tcm:1007-10560" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-19T18:17:38.4069486Z" id="83e3ecbc-8fc5-4cae-96cf-6478dae08a30">
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20comp%203%20(renamed2).xml</webdav_url>
+      <title>test comp 3 (renamed2)</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>
-    <item uri="tcm:1007-10556" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-07-18T17:36:55.0865278Z" id="21dbc18e-90e3-4dc2-8068-fb8f1694da5b">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%202%20of%20test%20c%201%20(renamed30.xml</webdav_url>
-      <title>Copy 2 of test c 1 (renamed19)</title>
+    <item uri="tcm:1007-10561" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-19T18:17:44.3440546Z" id="09665166-7061-452e-af1b-6bac0d7a6e43">
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20comp%204%20(renamed2).xml</webdav_url>
+      <title>test comp 4 (renamed2)</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>
-    <item uri="tcm:1007-10557" release="6ee1b107-8e1d-4956-8cd6-e61bb1318d8d" dateAdded="2016-07-18T17:36:55.1365307Z" id="2f4e4766-5cc5-475b-b6de-0b82ba67bac5">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%203%20of%20test%20c%201%20(renamed30).xml</webdav_url>
-      <title>Copy 3 of test c 1 (renamed19)</title>
+    <item uri="tcm:1007-10562" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-20T21:16:46.0475547Z" id="667fe1a3-b5cc-42fa-bcb3-7df2277b8429">
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%20of%20test%20comp%201%20(renamed2).xml</webdav_url>
+      <title>Copy of test comp 1 (renamed2)</title>
+      <is_shared>False</is_shared>
+      <subtype>0</subtype>
+    </item>
+    <item uri="tcm:1007-10563" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-20T21:16:46.0955574Z" id="a67f703d-f269-4f55-b8f5-8f863f76936f">
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%20of%20test%20comp%202%20(renamed2).xml</webdav_url>
+      <title>Copy of test comp 2 (renamed2)</title>
+      <is_shared>False</is_shared>
+      <subtype>0</subtype>
+    </item>
+    <item uri="tcm:1007-10564" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-20T21:16:46.1515606Z" id="ce100dbc-d9c5-496b-86a6-5860acab1bfe">
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%20of%20test%20comp%203%20(renamed2).xml</webdav_url>
+      <title>Copy of test comp 3 (renamed2)</title>
+      <is_shared>False</is_shared>
+      <subtype>0</subtype>
+    </item>
+    <item uri="tcm:1007-10565" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-20T21:16:46.1965632Z" id="4488c576-c91a-4060-9a5f-86ce9be773f4">
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%20of%20test%20comp%204%20(renamed2).xml</webdav_url>
+      <title>Copy of test comp 4 (renamed2)</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>
   </items>
-</db>>
+</db>

@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.ServiceModel;
+using System.Text;
+using System.Threading;
 using System.Web;
 using System.Xml;
-using System.Diagnostics;
-using System.Text;
-using System.IO;
-using System.Globalization;
-using Tridion;
 using Tridion.ContentManager;
 using Tridion.ContentManager.CoreService.Client;
-using ReleaseManager;
-using System.ServiceModel;
-using System.Threading;
 
 
 namespace ReleaseManager
@@ -35,6 +33,8 @@ namespace ReleaseManager
         private static HttpRequest req;
         private static XmlDocument importExportDoc = new XmlDocument();
         private static XmlNamespaceManager nm = new XmlNamespaceManager(importExportDoc.NameTable);
+
+        private static SessionAwareCoreServiceClient tridionClient = null;
         #endregion
 
         public ReleaseManagerRepository(System.Web.HttpServerUtility server, HttpRequest request)
@@ -68,6 +68,21 @@ namespace ReleaseManager
             client.Impersonate(HttpContext.Current.User.Identity.Name);
             if (client.State.Equals(CommunicationState.Faulted)) { client.Open(); }
             return client;
+        }
+
+        public SessionAwareCoreServiceClient getStaticCoreServiceClient()
+        {
+            if (null == tridionClient)
+            {
+                tridionClient = new SessionAwareCoreServiceClient(getCoreServiceEndpointName());
+                tridionClient.Impersonate(HttpContext.Current.User.Identity.Name);
+                if (tridionClient.State.Equals(CommunicationState.Faulted)) { tridionClient.Open(); }
+                return tridionClient;
+            }
+            else
+            {
+                return tridionClient;
+            }
         }
 
         public string getCoreServiceEndpointName()
@@ -335,6 +350,8 @@ namespace ReleaseManager
                     renamed = item.WEBDAV_URL != tridionItem.LocationInfo.WebDavUrl;
             }
 
+            tridionClient.Close();
+
             return renamed;
         }
 
@@ -407,25 +424,70 @@ namespace ReleaseManager
             {
                 XmlNode webDavNode = db.SelectSingleNode("//items/item[@uri='" + itemTcmId + "'][@release='" + release.id + "']/webdav_url");
                 webDavNode.InnerText = tridionItem.LocationInfo.WebDavUrl;
-                string dbPath = getPathReleaseManagerDb();
-                //db.Save(dbPath);
 
-                // Try to ensure that we wait until document is fully saved, to avoid conflicts with future udpates.
+                XmlNode titleNode = db.SelectSingleNode("//items/item[@uri='" + itemTcmId + "'][@release='" + release.id + "']/title");
+                titleNode.InnerText = tridionItem.Title;
+
+                //string dbPath = getPathReleaseManagerDb();
+
+                //var file = new FileStream(dbPath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
+
+                //File.Delete(dbPath);
+
+                //var existingReleaseDataFile = new FileStream(dbPath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
+                
+                //db.Save(file);
+
+
+                //Try reverting back to this next:
+                db.Save(getPathReleaseManagerDb());
+
+                //File.WriteAllText(getPathReleaseManagerDb(), db.OuterXml);
+
+                
+                //file.Unlock();
+
+                //File.Delete(dbPath);
+                //File.Copy(dbPath + "1", dbPath);
+                //File.Delete(dbPath + "1");
+
                 //while (IsFileLocked(new FileInfo(dbPath)))
                 //{
-                //Thread.Sleep(TimeSpan.FromSeconds(10));
+                //    Thread.Sleep(TimeSpan.FromSeconds(8));
+                //}
 
-                using (var file = new FileStream(dbPath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
-                {
-                    db.Save(file);
-                }
+                //file.Close();
+
+                //Thread.Sleep(TimeSpan.FromSeconds(2.5));
 
                 newItemFullPath = HttpUtility.UrlDecode(webDavNode.InnerText).Replace("/webdav/", String.Empty);
             }
 
+            tridionClient.Close();
+
             return newItemFullPath;
         }
+        
+        public static bool IsFileLocked(FileInfo file)
+        {
+            FileStream stream = null;
 
+            try
+            {
+                stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            }
+            catch (IOException)
+            {
+                return true;
+            }
+            finally
+            {
+                if (stream != null)
+                    stream.Close();
+            }
+
+            return false;
+        }
 
         /// <summary>
         /// stillExists
@@ -692,11 +754,11 @@ namespace ReleaseManager
         // TODO: rename to createBundle (singluar) if you end up using it to process just one bundle
         public bool createBundle(string bundleFolder, string bundlePrefix)
         {
-            const string BundleNamespace = @"http://www.sdltridion.com/ContentManager/Bundle";
-            SchemaData bundleTypeSchema = getCoreServiceClient().GetVirtualFolderTypeSchema(BundleNamespace);
-            string bundleSchemaId = bundleTypeSchema.Id;
-
             SessionAwareCoreServiceClient client = getCoreServiceClient();
+
+            const string BundleNamespace = @"http://www.sdltridion.com/ContentManager/Bundle";
+            SchemaData bundleTypeSchema = client.GetVirtualFolderTypeSchema(BundleNamespace);
+            string bundleSchemaId = bundleTypeSchema.Id;
 
             if(!bundleFolder.StartsWith("tcm:"))
             {
@@ -708,7 +770,7 @@ namespace ReleaseManager
                 bundleFolder = client.GetTcmUri(bundleFolder, null, null);
             }
 
-            var bundle = (VirtualFolderData)getCoreServiceClient().GetDefaultData(Tridion.ContentManager.CoreService.Client.ItemType.VirtualFolder, bundleFolder, new ReadOptions());
+            var bundle = (VirtualFolderData)client.GetDefaultData(Tridion.ContentManager.CoreService.Client.ItemType.VirtualFolder, bundleFolder, new ReadOptions());
             bundle.Configuration = "<Bundle xmlns=\"http://www.sdltridion.com/ContentManager/Bundle\"><Items /></Bundle>";
             bundle.TypeSchema = new LinkToSchemaData { IdRef = bundleSchemaId };
             // For the bundle suffix, use the title of the publication the bundle is being created in, which spaces replaced/
