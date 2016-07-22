@@ -6,6 +6,12 @@
     <link rel="Stylesheet" type="text/css" href="css/ReleaseManager.css" />
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/rmMain.js"></script>
+    <script type="text/javascript" language="javascript">
+        function ConfirmDeleteRelease(releaseTitle)
+        {
+            return confirm("Please confirm that you would like to delete release:\n" + releaseTitle);
+        }
+    </script>
 </head>
 <body style="background-image:url(images/splash_gradient.png)">
     <form id="form1" runat="server" onsubmit="dropXmlFieldsFromSubmit()">

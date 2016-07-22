@@ -5,7 +5,6 @@ using System.Globalization;
 using System.IO;
 using System.ServiceModel;
 using System.Text;
-using System.Threading;
 using System.Web;
 using System.Xml;
 using Tridion.ContentManager;
@@ -70,20 +69,20 @@ namespace ReleaseManager
             return client;
         }
 
-        public SessionAwareCoreServiceClient getStaticCoreServiceClient()
-        {
-            if (null == tridionClient)
-            {
-                tridionClient = new SessionAwareCoreServiceClient(getCoreServiceEndpointName());
-                tridionClient.Impersonate(HttpContext.Current.User.Identity.Name);
-                if (tridionClient.State.Equals(CommunicationState.Faulted)) { tridionClient.Open(); }
-                return tridionClient;
-            }
-            else
-            {
-                return tridionClient;
-            }
-        }
+        //public SessionAwareCoreServiceClient getStaticCoreServiceClient()
+        //{
+        //    if (null == tridionClient)
+        //    {
+        //        tridionClient = new SessionAwareCoreServiceClient(getCoreServiceEndpointName());
+        //        tridionClient.Impersonate(HttpContext.Current.User.Identity.Name);
+        //        if (tridionClient.State.Equals(CommunicationState.Faulted)) { tridionClient.Open(); }
+        //        return tridionClient;
+        //    }
+        //    else
+        //    {
+        //        return tridionClient;
+        //    }
+        //}
 
         public string getCoreServiceEndpointName()
         {
@@ -215,25 +214,56 @@ namespace ReleaseManager
         /// <returns></returns>
         public bool removeRelease(string release)
         {
+            //try
+            //{
+            //    XmlNode releaseNode = db.SelectSingleNode("//release[@id='" + release + "']");
+            //    if (releaseNode != null)
+            //    {
+            //        //releaseNode.ParentNode.RemoveChild(releaseNode);
+            //        var deletedAttribute = db.CreateAttribute("isDeleted");
+            //        deletedAttribute.Value = "true";
+            //        releaseNode.Attributes.Append(deletedAttribute);
+            //        db.Save(getPathReleaseManagerDb());
+            //        return true;
+            //    }
+            //    return false;
+            //}
+            //catch (Exception)
+            //{
+            //    logError("Unable to delete release '" + release + "' from releasemananger db. (" + getPathReleaseManagerDb() + ")");
+            //    return false;
+            //}
+
+            var deleteSuccess = true;
+            XmlNode releaseNode;
+            // Delete the release node 
             try
             {
-                XmlNode releaseNode = db.SelectSingleNode("//release[@id='" + release + "']");
-                if (releaseNode != null)
+                // Delete all of the release items
+                while ((releaseNode = db.SelectSingleNode("//item[@release='" + release + "']")) != null)
                 {
-                    //releaseNode.ParentNode.RemoveChild(releaseNode);
-                    var deletedAttribute = db.CreateAttribute("isDeleted");
-                    deletedAttribute.Value = "true";
-                    releaseNode.Attributes.Append(deletedAttribute);
-                    db.Save(getPathReleaseManagerDb());
-                    return true;
+                    releaseNode.ParentNode.RemoveChild(releaseNode);
                 }
-                return false;
+                // Delete the main release node
+                if ((releaseNode = db.SelectSingleNode("//release[@id='" + release + "']")) != null)
+                {
+                    releaseNode.ParentNode.RemoveChild(releaseNode);
+                }
+                else
+                {
+                    deleteSuccess = false;
+                }
             }
             catch (Exception)
             {
                 logError("Unable to delete release '" + release + "' from releasemananger db. (" + getPathReleaseManagerDb() + ")");
-                return false;
+                deleteSuccess = false;
             }
+            if (deleteSuccess)
+            {
+                db.Save(getPathReleaseManagerDb());
+            }
+            return deleteSuccess;
         }
 
         /// <summary>
@@ -306,54 +336,35 @@ namespace ReleaseManager
 
 
 
-        public void updateItemDetails_New(ReleaseItem item, string releaseId)
-        {
-            SessionAwareCoreServiceClient tridionClient = getCoreServiceClient();
+        //public void updateItemDetails_New(ReleaseItem item, string releaseId)
+        //{
+        //    SessionAwareCoreServiceClient tridionClient = getCoreServiceClient();
 
-            // if item really exists by tcmid
-            if (tridionClient.IsExistingObject(item.URI))
-            {
+        //    // if item really exists by tcmid
+        //    if (tridionClient.IsExistingObject(item.URI))
+        //    {
 
-                // get the item
-                RepositoryLocalObjectData tridionItem = (RepositoryLocalObjectData)tridionClient.Read(item.URI, new ReadOptions());
+        //        // get the item
+        //        RepositoryLocalObjectData tridionItem = (RepositoryLocalObjectData)tridionClient.Read(item.URI, new ReadOptions());
 
-                //System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text.txt", item.WEBDAV_URL + "," + tridionItem.LocationInfo.WebDavUrl);
-                // if the webdav name is incorrect try and fix it
-                if (item.WEBDAV_URL != tridionItem.LocationInfo.WebDavUrl)
-                {
+        //        //System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text.txt", item.WEBDAV_URL + "," + tridionItem.LocationInfo.WebDavUrl);
+        //        // if the webdav name is incorrect try and fix it
+        //        if (item.WEBDAV_URL != tridionItem.LocationInfo.WebDavUrl)
+        //        {
                     
-                    item.WEBDAV_URL = tridionItem.LocationInfo.WebDavUrl;
-                    item.TITLE = tridionItem.Title;
-                    updateReleaseItem(item);
+        //            item.WEBDAV_URL = tridionItem.LocationInfo.WebDavUrl;
+        //            item.TITLE = tridionItem.Title;
+        //            updateReleaseItem(item);
 
 
-                }
-            }
-            else
-            {
-                // item doesn't exist so remove it from the release
-                removeFromRelease(item.URI, releaseId);
-            }
-        }
-
-
-        public bool isItemRenamed(ReleaseItem item, string releaseId)
-        {
-            bool renamed = false;
-
-            SessionAwareCoreServiceClient tridionClient = getCoreServiceClient();
-
-            if (tridionClient.IsExistingObject(item.URI))
-            {
-                    // get the item
-                    RepositoryLocalObjectData tridionItem = (RepositoryLocalObjectData)tridionClient.Read(item.URI, new ReadOptions());
-                    renamed = item.WEBDAV_URL != tridionItem.LocationInfo.WebDavUrl;
-            }
-
-            tridionClient.Close();
-
-            return renamed;
-        }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        // item doesn't exist so remove it from the release
+        //        removeFromRelease(item.URI, releaseId);
+        //    }
+        //}
 
         public void updateItemDetails(ReleaseItem item, string releaseId)
         {
@@ -370,15 +381,6 @@ namespace ReleaseManager
                     item.WEBDAV_URL = tridionItem.LocationInfo.WebDavUrl;
                     item.TITLE = tridionItem.Title;
                     updateReleaseItem(item);
-
-                    // TODO - get node from db and update webdav in it
-
-                    //XmlNode webDavNode = db.SelectSingleNode("//items/item[@uri='" + item.URI + "'][@release='" + releaseId + "']/webdav_url");
-                    //if (webDavNode.InnerText != item.WEBDAV_URL)
-                    //{
-                    //    webDavNode.InnerText = item.WEBDAV_URL;
-                    //    db.Save(getPathReleaseManagerDb());
-                    //}
                 }
             }
             else
@@ -388,28 +390,41 @@ namespace ReleaseManager
             }
         }
 
-        // dj - May 2016
-        public void updateItemDetailsInReleaseData(Release release)
+        public bool isItemRenamed(ReleaseItem item, string releaseId)
         {
+            bool renamed = false;
+
             SessionAwareCoreServiceClient tridionClient = getCoreServiceClient();
 
-            foreach (var item in release.items)
+            if (tridionClient.IsExistingObject(item.URI))
             {
-                if (this.stillExists(item) && tridionClient.IsExistingObject(item.URI))
-                {
-                    RepositoryLocalObjectData tridionItem = (RepositoryLocalObjectData)tridionClient.Read(item.URI, new ReadOptions());
-                    XmlNode webDavNode = db.SelectSingleNode("//items/item[@uri='" + item.URI + "'][@release='" + release.id + "']/webdav_url");
-                    //System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text2.txt", "release.id: " + release.id);
-                    //if (webDavNode.InnerText != tridionItem.LocationInfo.WebDavUrl)
-                   // {
-                        webDavNode.InnerText = tridionItem.LocationInfo.WebDavUrl;
-                   // }
-                    //this.updateItemDetails(item, releaseId);
-                }
+                // get the item
+                RepositoryLocalObjectData tridionItem = (RepositoryLocalObjectData)tridionClient.Read(item.URI, new ReadOptions());
+                renamed = item.WEBDAV_URL != tridionItem.LocationInfo.WebDavUrl;
             }
 
-            db.Save(getPathReleaseManagerDb());
+            tridionClient.Close();
+
+            return renamed;
         }
+
+        // dj - May 2016
+        //public void updateItemDetailsInReleaseData(Release release)
+        //{
+        //    SessionAwareCoreServiceClient tridionClient = getCoreServiceClient();
+
+        //    foreach (var item in release.items)
+        //    {
+        //        if (this.stillExists(item) && tridionClient.IsExistingObject(item.URI))
+        //        {
+        //            RepositoryLocalObjectData tridionItem = (RepositoryLocalObjectData)tridionClient.Read(item.URI, new ReadOptions());
+        //            XmlNode webDavNode = db.SelectSingleNode("//items/item[@uri='" + item.URI + "'][@release='" + release.id + "']/webdav_url");
+        //            webDavNode.InnerText = tridionItem.LocationInfo.WebDavUrl;
+        //        }
+        //    }
+
+        //    db.Save(getPathReleaseManagerDb());
+        //}
 
 
         // dj - July 2016

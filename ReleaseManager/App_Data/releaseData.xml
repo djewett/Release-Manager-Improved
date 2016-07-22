@@ -1,41 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <db>
   <releases>
-    <release id="50e21524-b7f6-414a-8452-54cf6ea5782a" dateAdded="2016-07-19T16:41:11.7667423Z" dateFinalized="">
-      <note>
-      </note>
-      <title>DJ New Release - 19July2016</title>
-      <addedBy>WIN-DFMAJQHT95L\Administrator</addedBy>
-      <deletedBy>
-      </deletedBy>
-    </release>
-    <release id="952dcffa-86a1-4048-922b-50b932cc7b51" dateAdded="2016-07-19T16:41:17.1501829Z" dateFinalized="">
-      <note>
-      </note>
-      <title>DJ New Release - 19July2016</title>
-      <addedBy>WIN-DFMAJQHT95L\Administrator</addedBy>
-      <deletedBy>
-      </deletedBy>
-    </release>
-    <release id="91592b98-750b-4694-8620-e99be6844ae6" dateAdded="2016-07-19T16:53:49.1674591Z" dateFinalized="">
-      <note>
-      </note>
-      <title>DJ Release</title>
-      <addedBy>WIN-DFMAJQHT95L\Administrator</addedBy>
-      <deletedBy>
-      </deletedBy>
-    </release>
-    <release id="68b6655b-576c-441a-b1c1-be02f6cf5af3" dateAdded="2016-07-19T16:55:29.3581562Z" dateFinalized="">
-      <note>
-      </note>
-      <title>DJ Release</title>
-      <addedBy>WIN-DFMAJQHT95L\Administrator</addedBy>
-      <deletedBy>
-      </deletedBy>
-    </release>
     <release id="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-19T17:01:59.7044374Z" dateFinalized="">
-      <note>
-      </note>
+      <note>ewfuhewfpiuwehfew</note>
       <title>DJ 2</title>
       <addedBy>WIN-DFMAJQHT95L\Administrator</addedBy>
       <deletedBy>
@@ -45,50 +12,44 @@
   <items>
     <!--<item uri="tcm:0-21-1" release="testrelease1"><webdav_url>/webdav/ctpurl</webdav_url><title></title><version_start></version_start><version_end></version_end></item>-->
     <item uri="tcm:1007-10557" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-19T17:03:09.8679577Z" id="7a2b4099-7401-46c5-be9a-49565114097e">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20comp%202%20(renamed2).xml</webdav_url>
-      <title>test comp 2 (renamed2)</title>
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20comp%202%20(renamed3).xml</webdav_url>
+      <title>test comp 2 (renamed3)</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>
     <item uri="tcm:1007-6603" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-19T17:56:34.5106150Z" id="5274f67a-e8ea-4fb8-a16e-6618bdf73e22">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20comp%201%20(renamed2).xml</webdav_url>
-      <title>test comp 1 (renamed2)</title>
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20comp%201%20(renamed3).xml</webdav_url>
+      <title>test comp 1 (renamed3)</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>
     <item uri="tcm:1007-10560" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-19T18:17:38.4069486Z" id="83e3ecbc-8fc5-4cae-96cf-6478dae08a30">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20comp%203%20(renamed2).xml</webdav_url>
-      <title>test comp 3 (renamed2)</title>
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20comp%203%20(renamed3).xml</webdav_url>
+      <title>test comp 3 (renamed3)</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>
     <item uri="tcm:1007-10561" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-19T18:17:44.3440546Z" id="09665166-7061-452e-af1b-6bac0d7a6e43">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20comp%204%20(renamed2).xml</webdav_url>
-      <title>test comp 4 (renamed2)</title>
-      <is_shared>False</is_shared>
-      <subtype>0</subtype>
-    </item>
-    <item uri="tcm:1007-10562" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-20T21:16:46.0475547Z" id="667fe1a3-b5cc-42fa-bcb3-7df2277b8429">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%20of%20test%20comp%201%20(renamed2).xml</webdav_url>
-      <title>Copy of test comp 1 (renamed2)</title>
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20comp%204%20(renamed3).xml</webdav_url>
+      <title>test comp 4 (renamed3)</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>
     <item uri="tcm:1007-10563" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-20T21:16:46.0955574Z" id="a67f703d-f269-4f55-b8f5-8f863f76936f">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%20of%20test%20comp%202%20(renamed2).xml</webdav_url>
-      <title>Copy of test comp 2 (renamed2)</title>
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%20of%20test%20comp%202%20(renamed3).xml</webdav_url>
+      <title>Copy of test comp 2 (renamed3)</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>
     <item uri="tcm:1007-10564" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-20T21:16:46.1515606Z" id="ce100dbc-d9c5-496b-86a6-5860acab1bfe">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%20of%20test%20comp%203%20(renamed2).xml</webdav_url>
-      <title>Copy of test comp 3 (renamed2)</title>
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%20of%20test%20comp%203%20(renamed3).xml</webdav_url>
+      <title>Copy of test comp 3 (renamed3)</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>
     <item uri="tcm:1007-10565" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-20T21:16:46.1965632Z" id="4488c576-c91a-4060-9a5f-86ce9be773f4">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%20of%20test%20comp%204%20(renamed2).xml</webdav_url>
-      <title>Copy of test comp 4 (renamed2)</title>
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%20of%20test%20comp%204%20(renamed3).xml</webdav_url>
+      <title>Copy of test comp 4 (renamed3)</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>

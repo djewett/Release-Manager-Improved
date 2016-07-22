@@ -47,21 +47,21 @@ namespace ReleaseManager
                 }
                 else
                 {
-                    showDeletedReleases = true; // (Session.Contents["showDeletedReleases"] != null) ? (bool)Session.Contents["showDeletedReleases"] : false;
-                    showAll.ID = "showAll";
-                    showAll.Text = "Include finalized releases";
-                    showAll.AutoPostBack = true;
-                    showAll.CheckedChanged += new EventHandler(showAll_CheckedChanged);
+                    //showDeletedReleases = true; // (Session.Contents["showDeletedReleases"] != null) ? (bool)Session.Contents["showDeletedReleases"] : false;
+                    //showAll.ID = "showAll";
+                    //showAll.Text = "Include finalized releases";
+                    //showAll.AutoPostBack = true;
+                    //showAll.CheckedChanged += new EventHandler(showAll_CheckedChanged);
 
-                    //TODO: fix this
-                    showAll.Visible = false;
+                    ////TODO: fix this
+                    //showAll.Visible = false;
 
-                    showReleases();
-                    ReleaseItems.CssClass = "";
-                    txtExportSettings.Attributes["onclick"] = "this.select();";
-                    txtImportSettings.Attributes["onclick"] = "this.select();";
-                    exportXml.Attributes["onclick"] = "this.select();";
-                    //loadReleases();
+                    //showReleases();
+                    //ReleaseItems.CssClass = "";
+                    //txtExportSettings.Attributes["onclick"] = "this.select();";
+                    //txtImportSettings.Attributes["onclick"] = "this.select();";
+                    //exportXml.Attributes["onclick"] = "this.select();";
+                    loadReleases();
                 }
 
             }
@@ -243,6 +243,13 @@ namespace ReleaseManager
                     controlPanel.Controls.Add(btnCreateImportExportSettingsXML);
                 }
 
+                var btnDeleteRelease = new LinkButton();
+                btnDeleteRelease.Text = "Delete";
+                btnDeleteRelease.CssClass = "createSettings linkButton";
+                btnDeleteRelease.CommandArgument = release.id;
+                btnDeleteRelease.Click += new EventHandler(btnDeleteRelease_Click);
+                btnDeleteRelease.OnClientClick = "javascript:return ConfirmDeleteRelease(\"" + release.title.Replace("\"", "\\\"") + "\");";
+                controlPanel.Controls.Add(btnDeleteRelease);
 
                 releasePanel.CssClass = "row" + (i % 2 == 1 ? " odd" : "");
 
@@ -353,14 +360,14 @@ namespace ReleaseManager
 
 
         // dj - May 2016
-        void updateWebDavsInReleaseData(string releaseId)
-        {
-            ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
-            var release = rmRep.getRelease(releaseId);
-            rmRep.updateItemDetailsInReleaseData(release);
+        //void updateWebDavsInReleaseData(string releaseId)
+        //{
+        //    ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
+        //    var release = rmRep.getRelease(releaseId);
+        //    rmRep.updateItemDetailsInReleaseData(release);
 
-            //System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text1.txt", "releaseId: " + releaseId);
-        }
+        //    //System.IO.File.WriteAllText(@"C:\Users\Administrator\Desktop\text1.txt", "releaseId: " + releaseId);
+        //}
 
 
         // DJ
@@ -386,15 +393,16 @@ namespace ReleaseManager
 
             ReleaseItems.Controls.Clear();
             ReleaseItems.Controls.Add(new LiteralControl("<h4>Items in " + release.title + "</h4>"));
-            //var backButton = new Button();
-            //backButton.CssClass = "primary";
-            //backButton.Text = "Back to Releases";
-            //backButton.ID = "backButton";
-            //backButton.Click += new EventHandler(backButton_Click);
+
+            var backButton = new Button();
+            backButton.CssClass = "primary";
+            backButton.Text = "Back to Releases";
+            backButton.ID = "backButton";
+            backButton.Click += new EventHandler(backButton_Click);
 
 
 
-            var backButton = new LiteralControl("<input type=\"button\" id=\"backButton\" class=\"primary\" value=\"Back to Releases\" />");
+            //var backButton = new LiteralControl("<input type=\"submit\" id=\"backButton\" class=\"primary\" value=\"Back to Releases\" />");
 
             //var backButton = new Button();
             //backButton.Text = "Back to Releases";
@@ -645,11 +653,39 @@ namespace ReleaseManager
             }
         }
 
-        //void backButton_Click(object sender, EventArgs e)
-        //{
-        //    hideAllPanels();
-        //    showReleases();
-        //}
+        void backButton_Click(object sender, EventArgs e)
+        {
+            //hideAllPanels();
+            //showReleases();
+
+            //Request["showItemsInRelease"] = null;
+            //Page_Load(sender, e);
+            loadReleases();
+            Response.Redirect("manageReleases.aspx?");
+        }
+
+        void btnDeleteRelease_Click(object sender, EventArgs e)
+        {
+            LinkButton btn = (LinkButton)sender;
+            string release = btn.CommandArgument;
+            try
+            {
+                ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
+                bool successfulRemove = rmRep.removeRelease(release);
+
+                //if(!successfulRemove)
+                {
+                    btn.Text = "release";
+                }
+
+                // Refresh the display - the current item will be removed
+                loadReleases();
+                Response.Redirect("manageReleases.aspx?");
+            }
+            catch (Exception)
+            {
+            }
+        }
 
        // void bundlesButton_Click(object sender, EventArgs e)
         //{
@@ -684,22 +720,6 @@ namespace ReleaseManager
         //    showItemsInRelease("asdf");
         //}
 
-        void btnDeleteRelease_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            string release = btn.CommandArgument;
-            try
-            {
-                ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
-                rmRep.removeRelease(release);
-                btn.Parent.Controls.Remove(btn);
-                showReleases();
-            }
-            catch (Exception)
-            {
-            }
-        }
-
         protected void btnAddNewRelease_Click(object sender, EventArgs e)
         {
             if (!txtNewRelease.Text.Equals(string.Empty))
@@ -707,6 +727,8 @@ namespace ReleaseManager
                 ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
                 rmRep.addRelease(txtNewRelease.Text);
                 showReleases();
+
+                Response.Redirect("manageReleases.aspx?");
             }
         }
 
@@ -737,6 +759,8 @@ namespace ReleaseManager
 
             hideAllPanels();
             addReleaseForm.Visible = true;
+
+            CreateBundlesPanel.Visible = false;
         }
 
 
@@ -822,21 +846,21 @@ namespace ReleaseManager
             return bundleFolderPath;
         }
 
-        protected void testClick(object sender, EventArgs e)
-        {
-            string releaseId = Request["showItemsInRelease"];
-            ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
-            Release release = rmRep.getRelease(releaseId);
+        //protected void testClick(object sender, EventArgs e)
+        //{
+        //    string releaseId = Request["showItemsInRelease"];
+        //    ReleaseManagerRepository rmRep = new ReleaseManagerRepository(Server, Request);
+        //    Release release = rmRep.getRelease(releaseId);
 
-            // TODO: perform validations of input bundleFolder and output descriptive error message under bundles panel here.
+        //    // TODO: perform validations of input bundleFolder and output descriptive error message under bundles panel here.
 
-            string bundleFolderPath = validateFolderInput("yyy", rmRep);
-            if (string.IsNullOrEmpty(bundleFolderPath))
-            {
-                // Path could not be successfully retrieved, so cancel executing the rest of this method.
-                return;
-            }
-        }
+        //    string bundleFolderPath = validateFolderInput("yyy", rmRep);
+        //    if (string.IsNullOrEmpty(bundleFolderPath))
+        //    {
+        //        // Path could not be successfully retrieved, so cancel executing the rest of this method.
+        //        return;
+        //    }
+        //}
 
         protected void renameRefresh_Click(object sender, EventArgs e)
         {
@@ -880,13 +904,15 @@ namespace ReleaseManager
             //showItemsInRelease(releaseId);
         }
 
-        protected void backToReleases_click(object sender, EventArgs e)
-        {
-            loadReleases();
-        }
+        //protected void backToReleases_click(object sender, EventArgs e)
+        //{
+        //    loadReleases();
+        //}
 
         protected void createBundClick(object sender, EventArgs e)
         {
+            //CreateBundlesPanel.Controls.Remove(createBundlesErrorMessageLabel);
+
             // TODO: Try to Remove this code if you remove !isPostBack logic in Page_Load method near the top
             // Call showItemsInRelease() to ensure clicking the Create Bundles button does NOT return us to the main Release Manager dialog
             string releaseId = Request["showItemsInRelease"];

@@ -26,7 +26,7 @@ ADS.Tridion.ReleaseManager = {
         $('.refreshRenamedButton').click(parent.handleRefreshRenamedItemClick);
 
         $('.viewItems').on('click', parent.handleViewItemsClick);
-        $('#backButton').on('click', parent.handleBackToReleasesClick);
+        //$('#backButton').on('click', parent.handleBackToReleasesClick);
 
         // DJ
         //$('.bundlesButton').on('click', parent.handleCreateBundlesClick);
@@ -83,9 +83,9 @@ ADS.Tridion.ReleaseManager = {
         $('#resultMessage').text(data.d.message).show();
     },
 
-    handleBackToReleasesClick: function (e) {
-    window.location = '?';
-    },
+    //handleBackToReleasesClick: function (e) {
+    //window.location = '?';
+    //},
 
     handleViewItemsClick: function (e) {
         window.location = "?showItemsInRelease=" + $(e.currentTarget).data('releaseid');
