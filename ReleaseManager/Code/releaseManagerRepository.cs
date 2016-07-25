@@ -7,6 +7,8 @@ using System.ServiceModel;
 using System.Text;
 using System.Web;
 using System.Xml;
+using System.Xml.Linq;
+using System.Linq;
 using Tridion.ContentManager;
 using Tridion.ContentManager.CoreService.Client;
 
@@ -766,8 +768,13 @@ namespace ReleaseManager
 
         }
 
+        //public string getBundleName(string bundleFolder, string bundlePrefix)
+        //{
+
+        //}
+
         // TODO: rename to createBundle (singluar) if you end up using it to process just one bundle
-        public bool createBundle(string bundleFolder, string bundlePrefix)
+        public string createBundle(string bundleFolder, string bundlePrefix)
         {
             SessionAwareCoreServiceClient client = getCoreServiceClient();
 
@@ -792,10 +799,74 @@ namespace ReleaseManager
             // e.g. "000 Empty Parent" -> "--000_Empty_Parent"
             string bundleSuffix = "--" + bundle.BluePrintInfo.OwningRepository.Title.Replace(" ", "_");
             bundle.Title = bundlePrefix + bundleSuffix;
-            client.Create(bundle, new ReadOptions());
+            var bundleItem = client.Create(bundle, new ReadOptions());
 
-            return true;
+            return bundleItem.Id;
         }
+
+        public void addItemsToBundle(string bundleId, IList<string> itemIdsToAdd)
+        {
+            SessionAwareCoreServiceClient client = getCoreServiceClient();
+
+            VirtualFolderData bundle =
+                (VirtualFolderData)client.Read(bundleId, new ReadOptions());
+
+            XDocument doc = XDocument.Parse(bundle.Configuration);
+            XNamespace xmlns = "http://www.sdltridion.com/ContentManager/Bundle";
+            XNamespace xlink = "http://www.w3.org/1999/xlink";
+
+            foreach (var itemId in itemIdsToAdd)
+            {
+                XElement newItemNode = new XElement(xmlns + "Item",
+                    new XAttribute(XNamespace.Xmlns + "xlink", xlink),
+                    new XAttribute(xlink + "href", itemId)
+                );
+                doc.Descendants(xmlns + "Items").First().Add(newItemNode);
+            }
+
+            bundle.Configuration = doc.ToString();
+
+            //return bundle;
+
+            client.Save(bundle, new ReadOptions());
+        }
+
+        //public void AddItemsToBundle(TcmUri bundleId, params TcmUri[] itemsToAdd)
+        //{
+        //    SessionAwareCoreServiceClient client = getCoreServiceClient();
+
+        //    VirtualFolderData bundle =
+        //        (VirtualFolderData)client.Read(bundleId, new ReadOptions());
+        //    XmlDocument bundleConfiguration = new XmlDocument();
+        //    bundleConfiguration.LoadXml(bundle.Configuration);
+
+        //    XmlNameTable nameTable = new NameTable();
+        //    XmlNamespaceManager namespaceManager = new XmlNamespaceManager(nameTable);
+        //    namespaceManager.AddNamespace("b", @"http://www.sdltridion.com/ContentManager/Bundle");
+        //    namespaceManager.AddNamespace("xlink", @"http://www.w3.org/1999/xlink");
+
+        //    XmlElement itemsElement =
+        //        bundleConfiguration.SelectSingleElement("/b:Bundle/b:Items", namespaceManager);
+
+        //    foreach (var repositoryLocalObject in itemsToAdd)
+        //    {
+        //        XmlElement itemElement =
+        //            itemsElement.OwnerDocument.CreateElement("Item", @"http://www.sdltridion.com/ContentManager/Bundle");
+        //        itemElement.SetXLinkAttribute("type", "simple");
+        //        XmlAttribute xmlAttr =
+        //            itemElement.OwnerDocument.CreateAttribute("xlink", "href", "http://www.w3.org/1999/xlink");
+        //        xmlAttr.Value = respositoryLocalObject;
+        //        itemElement.SetAttributeNode(xmlAttr);
+        //        itemsElement.AppendChild(itemElement);
+        //    }
+
+        //    client.Save(bundle, new ReadOptions());
+        //}
+
+        //public void addItemToBundle(string bundleFolder, string itemTcm)
+        //{
+
+        //}
 
         /// <summary>
         /// Checks to see if a release contains errors

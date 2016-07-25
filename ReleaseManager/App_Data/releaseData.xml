@@ -12,44 +12,26 @@
   <items>
     <!--<item uri="tcm:0-21-1" release="testrelease1"><webdav_url>/webdav/ctpurl</webdav_url><title></title><version_start></version_start><version_end></version_end></item>-->
     <item uri="tcm:1007-10557" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-19T17:03:09.8679577Z" id="7a2b4099-7401-46c5-be9a-49565114097e">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20comp%202%20(renamed3).xml</webdav_url>
-      <title>test comp 2 (renamed3)</title>
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20comp%202.xml</webdav_url>
+      <title>test comp 2</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>
     <item uri="tcm:1007-6603" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-19T17:56:34.5106150Z" id="5274f67a-e8ea-4fb8-a16e-6618bdf73e22">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20comp%201%20(renamed3).xml</webdav_url>
-      <title>test comp 1 (renamed3)</title>
+      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20comp%201.xml</webdav_url>
+      <title>test comp 1</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>
-    <item uri="tcm:1007-10560" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-19T18:17:38.4069486Z" id="83e3ecbc-8fc5-4cae-96cf-6478dae08a30">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20comp%203%20(renamed3).xml</webdav_url>
-      <title>test comp 3 (renamed3)</title>
+    <item uri="tcm:1009-10566" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-24T15:06:09.3237848Z" id="b9ce33e8-2686-4b5a-b8d1-8f409ecde119">
+      <webdav_url>/webdav/050%20Master/Building%20Blocks/Content/Folder%201/test%20comp%203.xml</webdav_url>
+      <title>test comp 3</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>
-    <item uri="tcm:1007-10561" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-19T18:17:44.3440546Z" id="09665166-7061-452e-af1b-6bac0d7a6e43">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/test%20comp%204%20(renamed3).xml</webdav_url>
-      <title>test comp 4 (renamed3)</title>
-      <is_shared>False</is_shared>
-      <subtype>0</subtype>
-    </item>
-    <item uri="tcm:1007-10563" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-20T21:16:46.0955574Z" id="a67f703d-f269-4f55-b8f5-8f863f76936f">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%20of%20test%20comp%202%20(renamed3).xml</webdav_url>
-      <title>Copy of test comp 2 (renamed3)</title>
-      <is_shared>False</is_shared>
-      <subtype>0</subtype>
-    </item>
-    <item uri="tcm:1007-10564" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-20T21:16:46.1515606Z" id="ce100dbc-d9c5-496b-86a6-5860acab1bfe">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%20of%20test%20comp%203%20(renamed3).xml</webdav_url>
-      <title>Copy of test comp 3 (renamed3)</title>
-      <is_shared>False</is_shared>
-      <subtype>0</subtype>
-    </item>
-    <item uri="tcm:1007-10565" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-20T21:16:46.1965632Z" id="4488c576-c91a-4060-9a5f-86ce9be773f4">
-      <webdav_url>/webdav/030C%20Content/Building%20Blocks/Content/Folder%201/Copy%20of%20test%20comp%204%20(renamed3).xml</webdav_url>
-      <title>Copy of test comp 4 (renamed3)</title>
+    <item uri="tcm:1009-10567" release="89f47cb2-d48c-4945-899b-55df4a152149" dateAdded="2016-07-24T15:06:09.3687873Z" id="b93fbdb7-1cf8-411d-86f1-ac0cc8db7d02">
+      <webdav_url>/webdav/050%20Master/Building%20Blocks/Content/Folder%201/test%20comp%204.xml</webdav_url>
+      <title>test comp 4</title>
       <is_shared>False</is_shared>
       <subtype>0</subtype>
     </item>

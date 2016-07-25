@@ -9,6 +9,7 @@ using System.Resources;
 using System.Xml;
 using System.Web.UI.HtmlControls;
 using Tridion.ContentManager.CoreService.Client;
+
 namespace ReleaseManager
 {
     public partial class ManageReleases : System.Web.UI.Page
@@ -918,9 +919,9 @@ namespace ReleaseManager
             string releaseId = Request["showItemsInRelease"];
 
             // TODO: is this call needed here???:
-            showItemsInRelease(releaseId);
+           // showItemsInRelease(releaseId);
 
-            // Test you can retrieve values from bundle folder and prefix text boxes:
+            // Retrieve values from bundle folder and prefix text boxes:
             string bundleFolderInput = "";
             string bundlePrefixInput = "";
             retrieveBundleInputs(ref bundleFolderInput, ref bundlePrefixInput);
@@ -950,6 +951,13 @@ namespace ReleaseManager
 
             // TODO: consider URL encoding webdav, as suggeted should be done here: http://tridion.stackexchange.com/questions/11686/get-item-by-title-and-path-using-core-service
 
+            // Build a mapping from bundle folder to lists of item IDs that need to go in that bundle. Once the 
+            // map is created, iterate through it, creating the bundles and adding items to them.
+
+            // Initialize the map.
+            var bundleItemMap = new Dictionary<string, List<string>>();
+
+            // Create the map.
             foreach (var item in release.items)
             {
                 // Decided to go with string manipulation to get the list of publication names, instead of using client as it seems like it would be slower
@@ -960,17 +968,56 @@ namespace ReleaseManager
                 // e.g.: 000%20Empty%20Parent/Building%20Blocks/Content/Folder%201 < indexOfFirstSlash=20
                 string pub = webdavWithoutPrefix.Substring(0, indexOfFirstSlash);
 
-                // Why remove /webdav/ if we're just going to add it back?:
                 string currBundleFolderAsWebdav = "/webdav/" + pub + bundleFolderSuffix;
-                if (!bundleFoldersAsWebdavs.Contains(currBundleFolderAsWebdav))
-                {
-                    bundleFoldersAsWebdavs.Add(currBundleFolderAsWebdav);
 
-                    rmRep.createBundle(currBundleFolderAsWebdav, bundlePrefixInput);
+                if(!bundleItemMap.ContainsKey(currBundleFolderAsWebdav))
+                {
+                    bundleItemMap.Add(currBundleFolderAsWebdav, new List<string>());
                 }
 
+                bundleItemMap[currBundleFolderAsWebdav].Add(item.URI);
+
+                //string bundleId = "";
+
+                //// Why remove /webdav/ if we're just going to add it back?:
+                //string currBundleFolderAsWebdav = "/webdav/" + pub + bundleFolderSuffix;
+                //if (!bundleFoldersAsWebdavs.Contains(currBundleFolderAsWebdav))
+                //{
+                //    bundleFoldersAsWebdavs.Add(currBundleFolderAsWebdav);
+
+                //    bundleId = rmRep.createBundle(currBundleFolderAsWebdav, bundlePrefixInput);
+                //}
+
                 // TODO: add items to bundle
+
+                //rmRep.addItemToBundle(bundleId, item.URI);
+
+                //VirtualFolderData x = new VirtualFolderData();
             }
+
+
+            // Test the map by writing it out as a div in the CreateBundles panel:
+            //string testHtml = "<div>";
+            //foreach(var x in bundleItemMap)
+            //{
+            //    testHtml += x.Key + " - ";
+            //    foreach(var y in x.Value)
+            //    {
+            //        testHtml += y + " - ";
+            //    }
+            //}
+            //testHtml += "</div>";
+
+            //var testHtmlControl = new LiteralControl(testHtml);
+            //CreateBundlesPanel.Controls.Add(testHtmlControl);
+
+            // Iterate over the map, creating the bundles in Tridion and adding their items to them.
+            foreach(var entry in bundleItemMap)
+            {
+                var currBundleId = rmRep.createBundle(entry.Key, bundlePrefixInput);
+                rmRep.addItemsToBundle(currBundleId, entry.Value);
+            }
+
             // TODO: You will probably want to check for each pub in list whether it is a child of the publication
             // specified as the first part of the path given by"bundleFolder".
 
@@ -979,11 +1026,6 @@ namespace ReleaseManager
             //    rmRep.createBundle(currBundleFolderAsWebdav, bundlePrefixInput);
             //}
         }
-
-
-
-
-
 
         void hideAllPanels()
         {
